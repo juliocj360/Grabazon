@@ -7,7 +7,6 @@ var items = [
     department: "toys",
     image: "http://www.gamerwithkids.com/wp-content/uploads/2016/02/LEGO-Super-Heroes-76034-the-Batboat-Harbor-Pursuit-Building-Kit-0-0.jpg"
   },
-
   {
     name: "CITY Ferry 60119",
     manufacturer: "Lego",
@@ -16,7 +15,6 @@ var items = [
     department: "toys",
     image: "https://farm6.staticflickr.com/5719/23600766096_8dfeab0e1c_c.jpg"
   },
-
   {
     name: "DUPLO Disney 10822 Sofia the First Magical Carriage Building Kit",
     manufacturer: "Lego",
@@ -25,25 +23,22 @@ var items = [
     department: "toys",
     image: "https://images-na.ssl-images-amazon.com/images/I/81kj%2BDEmIqL._SL1500_.jpg"
   },
-
   {
     name: "Connect 4 Game",
     manufacturer: "Hasbro",
     price: 6.99,
     description: "Classic Connect 4 game is disc-dropping fun. When you get 4 discs in a row you win!",
     department: "toys",
-    image: "https://images-na.ssl-images-amazon.com/images/I/91L30nswRuL._SL1500_.jpg"
+    image: "http://trusca.imageg.net/graphics/product_images/pTRUCA1-16021344enh-z6.jpg"
   },
-
   {
     name: "Battleship Game",
     manufacturer: "Hasbro",
     price: 9.11,
     description: "Classic Battleship game lets you hold head-to-head naval battles. If you can locate your enemy's ships you can destroy all 5 for the win!",
     department: "toys",
-    image: "https://theboardwalkgamesdotcom.files.wordpress.com/2016/01/battleship-cover-3.jpg"
+    image: "http://www.ultrabattleship.com/gfx/cover.jpg"
   },
-
   {
     name: "Uno",
     manufacturer: "Mattel",
@@ -75,33 +70,38 @@ function clear(element) {
 }
 
 function showResult(index) {
+  var resultBox = document.createElement('div');
+  resultBox.className = "resultBox";
+  aResult.appendChild(resultBox);
+
   var image = document.createElement('img');
   image.className = "picture";
   image.setAttribute('src', items[index].image);
-  aResult.appendChild(image);
+  resultBox.appendChild(image);
 
   var name = document.createElement('h3');
   name.className = 'name';
   name.textContent = items[index].name;
-  aResult.appendChild(name);
+  resultBox.appendChild(name);
 
   var price = document.createElement('h4');
   price.className = 'price';
   price.textContent = "$" + items[index].price;
-  aResult.appendChild(price);
+  resultBox.appendChild(price);
 
   var manufacturer = document.createElement('h5');
   manufacturer.className = 'manufacturer';
   manufacturer.textContent = items[index].manufacturer;
-  aResult.appendChild(manufacturer);
+  resultBox.appendChild(manufacturer);
 
   var description = document.createElement('p');
   description.className = 'desc';
   description.textContent = items[index].description;
-  aResult.appendChild(description);
+  resultBox.appendChild(description);
 }
 
 aSearch.addEventListener('click', function() {
+   event.preventDefault();
    searchText();
    eraseText();
  });

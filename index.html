@@ -3,12 +3,19 @@
   <head>
     <meta charset="utf-8">
     <title>Grabazon</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,600" rel="stylesheet">
+    <link rel="stylesheet" href="default.css">
   </head>
   <body>
-    <h1>Grabazon</h1>
-    <input type="text" name="search" id="look-up" onclick="javascript:eraseText();">
-    <button type="button" id="search">Search</button>
-    <hr>
+    <div class="header">
+      <h1>Grabazon</h1>
+      <div class="searcher">
+        <form id="search-box">
+          <input id="look-up" autofocus="autofocus">
+          <button type="submit" id="search">Search</button>
+        </form>
+      </div>
+    </div>
     <div id="result"></div>
     <script src="default.js"></script>
   </body>
