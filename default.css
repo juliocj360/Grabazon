@@ -1,0 +1,32 @@
+body,
+button,
+input {
+  font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+  float: left;
+  margin: 0;
+}
+
+.header {
+  overflow: auto;
+}
+
+.picture {
+  height: 300px;
+  width: 500px;
+  float: left;
+}
+
+.resultBox {
+  border-width: 2px;
+  padding: 5px;
+  border-color: black;
+  border-style: solid;
+  overflow: auto;
+}
+
+.searcher {
+  padding-top: 5px;
+}
