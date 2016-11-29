@@ -2,15 +2,27 @@ body,
 button,
 input {
   font-family: 'Raleway', sans-serif;
+  margin: 0;
 }
 
-h1 {
+h1,
+.imagesBox,
+.searcher {
   float: left;
+  margin: 0;
+}
+
+h3,
+p {
   margin: 0;
 }
 
 .header {
   overflow: auto;
+}
+
+#grab-bag {
+  float: right;
 }
 
 .picture {
@@ -19,7 +31,10 @@ h1 {
   float: left;
 }
 
-.resultBox {
+.resultBox,
+.header,
+.runner,
+.imagesBox {
   border-width: 2px;
   padding: 5px;
   border-color: black;
@@ -27,6 +42,57 @@ h1 {
   overflow: auto;
 }
 
+.imagesBox {
+  padding: 0;
+}
+
 .searcher {
   padding-top: 5px;
+}
+
+.mainPicture {
+  width: 330px;
+  height: 330px;
+  float: left;
+}
+
+.picture1,
+.picture2,
+.picture3 {
+  width: 100px;
+  height: 100px;
+  display: block;
+}
+
+.picture1,
+.picture2 {
+  margin-bottom: 15px;
+}
+
+.runner {
+  float: right;
+  height: 1000px;
+}
+
+#grabber {
+  width: 120px;
+  height: 30px;
+}
+
+#qty {
+  height: 28px;
+}
+
+#qty,
+#grabber {
+  font-size: 20px;
+  padding: 0;
+  border: 0;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#grab-bag {
+  margin-right: 10px;
 }
