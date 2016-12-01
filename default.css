@@ -13,7 +13,10 @@ h1,
 }
 
 h3,
+h4,
+h5,
 p {
+  overflow: auto;
   margin: 0;
 }
 
@@ -40,6 +43,10 @@ p {
   border-color: black;
   border-style: solid;
   overflow: auto;
+}
+
+.resultBox {
+  cursor: pointer;
 }
 
 .imagesBox {
@@ -74,11 +81,6 @@ p {
   height: 1000px;
 }
 
-#grabber {
-  width: 120px;
-  height: 30px;
-}
-
 #qty {
   height: 28px;
 }
@@ -93,6 +95,104 @@ p {
   border-width: 1px;
 }
 
+button#grabber {
+  width: 120px;
+  height: 30px;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+#grabber:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+button {
+  cursor: pointer;
+}
+
 #grab-bag {
-  margin-right: 10px;
+  margin-right: 0;
+}
+
+#review-button,
+#checkoutButton {
+  width: 125px;
+}
+
+.reviewPicture {
+  width: 250px;
+  height: 250px;
+  float: left;
+}
+
+.reviewItemBox,
+.reviewHeader {
+  overflow: auto;
+  padding-bottom: 5px;
+  position: relative;
+}
+
+.reviewItemBox {
+  border-top: 1px black solid;
+  border-bottom: 1px black solid;
+}
+
+#registerBox {
+  float: right;
+}
+
+.innerRunner {
+  float: right;
+  overflow: auto;
+}
+
+#runnerItem {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 60px;
+  font-weight: 600;
+  font-size: 12px;
+  text-align: center;
+}
+
+#runnerItemTotal {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  min-width: 60px;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: center;
+}
+
+.incrementer {
+  display: block;
+  padding-left: 13px;
+}
+
+#incrementerUp,
+#incrementerDown {
+  display: inline;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-weight: 600;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#remover {
+  position: absolute;
+  bottom: 5px;
+  left: 260px;
+  cursor: pointer;
+  border-bottom: 1px black blue;
+  font-size: 10px;
+  font-weight: 600;
+  color: blue;
 }

@@ -1,6 +1,6 @@
 var items = [
   {
-    name: "Super Heroes 76034 the Batboat Harbor Pursuit Building Kit",
+    name: "Batboat Harbor Pursuit",
     shortName: "batboat",
     manufacturer: "Lego",
     quantity: 0,
@@ -12,7 +12,7 @@ var items = [
     image3: "https://images-na.ssl-images-amazon.com/images/I/81UVHTwEExL._SL1500_.jpg"
   },
   {
-    name: "CITY Ferry 60119",
+    name: "CITY Ferry",
     shortName: "ferry",
     manufacturer: "Lego",
     quantity: 0,
@@ -24,7 +24,7 @@ var items = [
     image3: "https://images-na.ssl-images-amazon.com/images/I/81UkjOz%2B6kL._SL1500_.jpg"
   },
   {
-    name: "DUPLO Disney 10822 Sofia the First Magical Carriage Building Kit",
+    name: "DUPLO Disney Sofia the First Magical Carriage Building Kit",
     manufacturer: "Lego",
     shortName: "sofia",
     quantity: 0,
@@ -76,6 +76,14 @@ var items = [
 var aSearch = document.getElementById('search');
 var aResult = document.getElementById('result');
 var lookUp = document.getElementById('look-up');
+var aReview = document.getElementById('review-button');
+var costBeforeTaxes = 0;
+var fullCost = 0;
+var totalCost = 0;
+var bagQuantity = 0;
+var shippingCost = 0;
+var tax = 0;
+var taxes = 0;
 
 function eraseText() {
     document.getElementById("look-up").value = "";
@@ -235,21 +243,292 @@ function bagQtyUpdater() {
   for (var i = 0; i < items.length; i++) {
     sum += items[i].quantity;
   }
+  bagQuantity = sum;
   var bagQty = document.getElementById('qty-total');
-  bagQty.textContent = "Total Items: " + sum;
+  bagQty.textContent = "Total Items: " + bagQuantity;
 }
 
 function bagCostUpdater() {
   var sum = 0;
   for (var i = 0; i < items.length; i++) {
-    sum += (items[i].quantity * items[i].price);
+    var price = items[i].price;
+    var quantity = items[i].quantity;
+    sum += price * quantity;
   }
+  var fixedSum = sum.toFixed(2);
+  costBeforeTaxes = Number(fixedSum);
+  tax = costBeforeTaxes * 0.09;
+  taxes = tax.toFixed(2);
+  fullCost = costBeforeTaxes + Number(tax.toFixed(2));
+  totalCost = fullCost.toFixed(2);
   var bagCost = document.getElementById('cost-total');
-  bagCost.textContent = "Total Items: " + sum;
+  bagCost.textContent = "Total Cost: $" + totalCost;
+}
+
+function bagReview() {
+  event.preventDefault();
+  clear(aResult);
+
+  var reviewBox = document.createElement('div');
+  reviewBox.className = "reviewBox";
+  aResult.appendChild(reviewBox);
+
+  var runner = document.createElement('div');
+  runner.className = "runner";
+  runner.setAttribute('id', 'checkoutRunner');
+  reviewBox.appendChild(runner);
+
+  var checkoutButton = document.createElement('button');
+  checkoutButton.setAttribute('id', 'checkoutButton');
+  checkoutButton.setAttribute('type', 'button');
+  checkoutButton.textContent = 'Proceed to Checkout';
+  runner.appendChild(checkoutButton);
+
+  var reviewHeader = document.createElement('div');
+  reviewHeader.className = "reviewHeader";
+  reviewBox.appendChild(reviewHeader);
+
+  var innerRunner = document.createElement('div');
+  innerRunner.className = 'innerRunner';
+  innerRunner.setAttribute('id', 'headRunner');
+  reviewHeader.appendChild(innerRunner);
+
+  var itemQuantity = document.createElement('div');
+  itemQuantity.className = 'itemQuantity';
+  itemQuantity.textContent = "Quantity";
+  itemQuantity.setAttribute('id', 'runnerItem');
+  innerRunner.appendChild(itemQuantity);
+
+  var itemCost = document.createElement('div');
+  itemCost.className = 'itemCost';
+  itemCost.textContent = "Item Cost";
+  itemCost.setAttribute('id', 'runnerItem');
+  innerRunner.appendChild(itemCost);
+
+  var itemTotal = document.createElement('div');
+  itemTotal.className = 'itemTotal';
+  itemTotal.textContent = "Total";
+  itemTotal.setAttribute('id', 'runnerItem');
+  innerRunner.appendChild(itemTotal);
+
+  var reviewTitle = document.createElement('h3');
+  reviewTitle.textContent = "Grab Bag Contents..."
+  reviewHeader.appendChild(reviewTitle);
+
+  var bagItemsBox = document.createElement('div');
+  bagItemsBox.setAttribute('id', 'bagItemsBox');
+  reviewBox.appendChild(bagItemsBox);
+
+  var register = document.createElement('div');
+  register.setAttribute('id', 'registerBox');
+  reviewBox.appendChild(register);
+
+  var subTotal = document.createElement('div');
+  subTotal.className = 'subTotal';
+  register.appendChild(subTotal);
+
+  var subTotalText = document.createElement('div');
+  subTotalText.className = 'subTotalText';
+  subTotalText.setAttribute('id', 'runnerItem');
+  subTotalText.textContent = "Subtotal: ";
+  subTotal.appendChild(subTotalText);
+
+  var subTotalAmount = document.createElement('div');
+  subTotalAmount.className = 'subTotalAmount';
+  subTotalAmount.setAttribute('id', 'runnerItem');
+  subTotalAmount.textContent = "$" + costBeforeTaxes;
+  subTotal.appendChild(subTotalAmount);
+
+  var registerTax = document.createElement('div');
+  registerTax.className = 'registerTax';
+  register.appendChild(registerTax);
+
+  var registerTaxText = document.createElement('div');
+  registerTaxText.className = 'registerTaxText';
+  registerTaxText.setAttribute('id', 'runnerItem');
+  registerTaxText.textContent = "Taxes: ";
+  registerTax.appendChild(registerTaxText);
+
+  var registerTaxAmount = document.createElement('div');
+  registerTaxAmount.className = 'registerTaxAmount';
+  registerTaxAmount.setAttribute('id', 'runnerItem');
+  registerTaxAmount.textContent = "$" + taxes;
+  registerTax.appendChild(registerTaxAmount);
+
+  var registerShipping = document.createElement('div');
+  registerShipping.className = 'registerShipping';
+  register.appendChild(registerShipping);
+
+  var registerShippingText = document.createElement('div');
+  registerShippingText.className = 'registerShippingText';
+  registerShippingText.setAttribute('id', 'runnerItem');
+  registerShippingText.textContent = "Shipping: ";
+  registerShipping.appendChild(registerShippingText);
+
+  var registerShippingAmount = document.createElement('div');
+  registerShippingAmount.className = 'registerShippingAmount';
+  registerShippingAmount.setAttribute('id', 'runnerItem');
+  registerShippingAmount.textContent = "$" + shippingCost;
+  registerShipping.appendChild(registerShippingAmount);
+
+  var registerTotal = document.createElement('div');
+  registerTotal.className = 'registerTotal';
+  register.appendChild(registerTotal);
+
+  var registerTotalText = document.createElement('div');
+  registerTotalText.className = 'registerTotalText';
+  registerTotalText.setAttribute('id', 'runnerItemTotal');
+  registerTotalText.textContent = "Total: ";
+  registerTotal.appendChild(registerTotalText);
+
+  var registerTotalAmount = document.createElement('div');
+  registerTotalAmount.className = 'registerTotalAmount';
+  registerTotalAmount.setAttribute('id', 'runnerItemTotal');
+  registerTotalAmount.textContent = "$" + totalCost;
+  registerTotal.appendChild(registerTotalAmount);
+
+  bagCheck();
+}
+
+function bagCheck() {
+  if (bagQuantity < 1) {
+    var bagBox = document.getElementById('bagItemsBox');
+    bagBox.textContent = "Your bag is empty!";
+    hideBagger();
+  }
+  else {
+    bagRun();
+  }
+}
+
+function bagRun() {
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].quantity > 0) {
+    listItems(i);
+    }
+  }
+}
+
+function hideBagger() {
+  var register = document.getElementById('registerBox');
+  register.setAttribute('hidden', 'hidden');
+
+  var checkoutRunner = document.getElementById('checkoutRunner');
+  checkoutRunner.setAttribute('hidden', 'hidden');
+
+  var headRunner = document.getElementById('headRunner');
+  headRunner.setAttribute('hidden', 'hidden');
+}
+
+function listItems(index) {
+  var bagBox = document.getElementById('bagItemsBox');
+
+  var itemBox = document.createElement('div');
+  itemBox.className = "reviewItemBox";
+  bagBox.appendChild(itemBox);
+
+  var image = document.createElement('img');
+  image.className = "reviewPicture";
+  image.setAttribute('src', items[index].image);
+  itemBox.appendChild(image);
+
+  var innerRunner = document.createElement('div');
+  innerRunner.className = 'innerRunner';
+  itemBox.appendChild(innerRunner);
+
+  var itemQuantity = document.createElement('div');
+  itemQuantity.className = 'itemQuantity';
+  itemQuantity.textContent = items[index].quantity;
+  itemQuantity.setAttribute('id', 'runnerItem');
+  innerRunner.appendChild(itemQuantity);
+
+  var itemCost = document.createElement('div');
+  itemCost.className = 'itemCost';
+  itemCost.textContent = "$" + items[index].price;
+  itemCost.setAttribute('id', 'runnerItem');
+  innerRunner.appendChild(itemCost);
+
+  var itemTotal = document.createElement('div');
+  itemTotal.className = 'itemTotal';
+  itemTotal.textContent = "$" + (items[index].quantity * items[index].price).toFixed(2);
+  itemTotal.setAttribute('id', 'runnerItem');
+  innerRunner.appendChild(itemTotal);
+
+  var incrementer = document.createElement('div');
+  incrementer.className = 'incrementer';
+  incrementer.setAttribute('id', 'incrementer');
+  innerRunner.appendChild(incrementer);
+
+  var incrementerUp = document.createElement('div');
+  incrementerUp.className = 'incrementer';
+  incrementerUp.textContent = "+";
+  incrementerUp.setAttribute('id', 'incrementerUp');
+  incrementer.appendChild(incrementerUp);
+
+  var incrementerDown = document.createElement('div');
+  incrementerDown.className = 'incrementer';
+  incrementerDown.textContent = "-";
+  incrementerDown.setAttribute('id', 'incrementerDown');
+  incrementer.appendChild(incrementerDown);
+
+  var name = document.createElement('h3');
+  name.className = 'name';
+  name.textContent = items[index].name;
+  itemBox.appendChild(name);
+
+  var maker = document.createElement('h4');
+  maker.className = 'maker';
+  maker.textContent = items[index].manufacturer;
+  itemBox.appendChild(maker);
+
+  var remover = document.createElement('div');
+  remover.setAttribute('id', 'remover');
+  remover.textContent = "Remove item from bag";
+  itemBox.appendChild(remover);
+
+  aRemover(index, remover);
+  incrementUp(index, incrementerUp);
+  incrementDown(index, incrementerDown);
+}
+
+function incrementUp(index, incrementerUp) {
+  incrementerUp.addEventListener('click', function () {
+    qtyAdder(index, 1);
+    bagReview();
+  });
+}
+
+function incrementDown(index, incrementerDown) {
+  incrementerDown.addEventListener('click', function() {
+    minusOne(index);
+  });
+}
+
+function minusOne(index) {
+  if (items[index].quantity > 0) {
+    qtyAdder(index, -1);
+    bagReview();
+  }
+}
+
+function aRemover(index, remover) {
+  remover.addEventListener('click', function () {
+    itemRemover(index);
+  });
+}
+
+function itemRemover(index) {
+  items[index].quantity = 0;
+  qtyAdder(index,0);
+  bagReview();
 }
 
 aSearch.addEventListener('click', function() {
    event.preventDefault();
    searchText();
    eraseText();
+ });
+
+ aReview.addEventListener('click', function(){
+   bagReview();
  });
