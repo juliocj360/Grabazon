@@ -1,3 +1,14 @@
+html,
+body,
+#result,
+.detailBox,
+.reviewBox,
+.checkoutBox {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body,
 button,
 input {
@@ -78,7 +89,8 @@ p {
 
 .runner {
   float: right;
-  height: 1000px;
+  height: 100%;
+  padding-top: 20px;
 }
 
 #qty {
@@ -118,13 +130,20 @@ button {
 }
 
 #review-button,
-#checkoutButton {
+#checkoutButton,
+#submitButton {
   width: 125px;
 }
 
 .reviewPicture {
   width: 250px;
   height: 250px;
+  float: left;
+}
+
+.miniReviewPicture {
+  width: 100px;
+  height: 100px;
   float: left;
 }
 
@@ -195,4 +214,73 @@ button {
   font-size: 10px;
   font-weight: 600;
   color: blue;
+}
+
+#submitButton {
+  display: block;
+}
+
+.formHolder {
+  overflow: auto;
+  display: block;
+}
+
+.detailInput {
+  display: block;
+}
+
+.shippingColumn1,
+.shippingColumn2,
+.paymentColumn1,
+.paymentColumn2,
+.cardColumn1,
+.cardColumn2,
+.reviewColumn1,
+.reviewColumn2 {
+  display: inline;
+  float: left;
+  margin: 10px;
+}
+
+.checkboxText {
+  display: inline;
+  font-weight: 600;
+  font-size: 10px;
+}
+
+.shippingBox,
+.paymentBox {
+  overflow: auto;
+  display: block;
+}
+
+.boxTitle {
+  font-weight: 600;
+}
+
+.cardDetailBox {
+  float: left;
+  clear: left;
+}
+
+.radioButton {
+  float: left;
+  display: block;
+}
+
+#deliveryOptions {
+  display: block;
+}
+
+.reviewColumn1 {
+  min-width: 320px;
+}
+
+.shippingBox {
+  margin-top: 15px;
+}
+
+.reviewColumn2 {
+  border-left: 20px;
+  padding-left: 20px;
 }

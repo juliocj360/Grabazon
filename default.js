@@ -233,7 +233,7 @@ function grabItems(index) {
   }
 
 function qtyAdder(index, qty) {
-  items[index].quantity += parseInt(qty, 10); //+ itemQty;
+  items[index].quantity += parseInt(qty, 10);
   bagQtyUpdater();
   bagCostUpdater();
 }
@@ -256,11 +256,12 @@ function bagCostUpdater() {
     sum += price * quantity;
   }
   var fixedSum = sum.toFixed(2);
+  var fixedShipping = parseFloat(shippingCost);
   costBeforeTaxes = Number(fixedSum);
   tax = costBeforeTaxes * 0.09;
   taxes = tax.toFixed(2);
   fullCost = costBeforeTaxes + Number(tax.toFixed(2));
-  totalCost = fullCost.toFixed(2);
+  totalCost = (Number(fullCost) + Number(fixedShipping)).toFixed(2);
   var bagCost = document.getElementById('cost-total');
   bagCost.textContent = "Total Cost: $" + totalCost;
 }
@@ -388,6 +389,13 @@ function bagReview() {
   registerTotal.appendChild(registerTotalAmount);
 
   bagCheck();
+  checkoutListener(checkoutButton);
+}
+
+function checkoutListener(checkoutButton) {
+  checkoutButton.addEventListener('click', function() {
+    checkOutLoader();
+  })
 }
 
 function bagCheck() {
@@ -395,6 +403,8 @@ function bagCheck() {
     var bagBox = document.getElementById('bagItemsBox');
     bagBox.textContent = "Your bag is empty!";
     hideBagger();
+    shippingCost = 0;
+    bagCostUpdater();
   }
   else {
     bagRun();
@@ -491,6 +501,7 @@ function listItems(index) {
   incrementDown(index, incrementerDown);
 }
 
+
 function incrementUp(index, incrementerUp) {
   incrementerUp.addEventListener('click', function () {
     qtyAdder(index, 1);
@@ -521,6 +532,464 @@ function itemRemover(index) {
   items[index].quantity = 0;
   qtyAdder(index,0);
   bagReview();
+}
+
+function checkOutLoader() {
+  event.preventDefault();
+  clear(aResult);
+
+  var checkoutBox = document.createElement('div');
+  checkoutBox.className = "checkoutBox";
+  aResult.appendChild(checkoutBox);
+
+  var runner = document.createElement('div');
+  runner.className = "runner";
+  runner.setAttribute('id', 'checkoutRunner');
+  checkoutBox.appendChild(runner);
+
+  var formHolder = document.createElement('div');
+  formHolder.className = "formHolder";
+  checkoutBox.appendChild(formHolder);
+
+  var shippingBox = document.createElement('div');
+  shippingBox.className = "shippingBox";
+  formHolder.appendChild(shippingBox);
+
+  var shippingBoxTitle = document.createElement('div');
+  shippingBoxTitle.className = 'boxTitle';
+  shippingBoxTitle.textContent = "Shipping Information";
+  shippingBox.appendChild(shippingBoxTitle);
+
+  var shippingColumnBox = document.createElement('div');
+  shippingColumnBox.className = 'columnBox';
+  shippingBox.appendChild(shippingColumnBox);
+
+  var shippingColumn1 = document.createElement('div');
+  shippingColumn1.className = "shippingColumn1";
+  shippingColumnBox.appendChild(shippingColumn1);
+
+  var shipFirstName = document.createElement('input');
+  shipFirstName.className = 'detailInput';
+  shipFirstName.setAttribute('type', 'text');
+  shipFirstName.setAttribute('placeholder', 'First Name');
+  shipFirstName.setAttribute('id', 'firstName');
+  shippingColumn1.appendChild(shipFirstName);
+
+  var shipAddress = document.createElement('input');
+  shipAddress.className = 'detailInput';
+  shipAddress.setAttribute('type', 'text');
+  shipAddress.setAttribute('placeholder', 'Address')
+  shippingColumn1.appendChild(shipAddress);
+
+  var shipCity = document.createElement('input');
+  shipCity.className = 'detailInput';
+  shipCity.setAttribute('type', 'text');
+  shipCity.setAttribute('placeholder', 'City')
+  shippingColumn1.appendChild(shipCity);
+
+  var shippingColumn2 = document.createElement('div');
+  shippingColumn2.className = "shippingColumn2";
+  shippingColumnBox.appendChild(shippingColumn2);
+
+  var shipLastName = document.createElement('input');
+  shipLastName.className = 'detailInput';
+  shipLastName.setAttribute('type', 'text');
+  shipLastName.setAttribute('placeholder', 'Last Name')
+  shippingColumn2.appendChild(shipLastName);
+
+  var shipState = document.createElement('input');
+  shipState.className = 'detailInput';
+  shipState.setAttribute('type', 'text');
+  shipState.setAttribute('placeholder', 'State')
+  shippingColumn2.appendChild(shipState);
+
+  var shipZip = document.createElement('input');
+  shipZip.className = 'detailInput';
+  shipZip.setAttribute('type', 'text');
+  shipZip.setAttribute('placeholder', 'Zip Code')
+  shippingColumn2.appendChild(shipZip);
+
+  var paymentBox = document.createElement('div');
+  paymentBox.className = "paymentBox";
+  formHolder.appendChild(paymentBox);
+
+  var paymentBoxTitle = document.createElement('div');
+  paymentBoxTitle.className = 'boxTitle';
+  paymentBoxTitle.textContent = "Payment Information";
+  paymentBox.appendChild(paymentBoxTitle);
+
+  var checkboxHolder = document.createElement('div');
+  checkboxHolder.className = 'checkboxHolder';
+  paymentBox.appendChild(checkboxHolder);
+
+  var addressCheckbox = document.createElement('input');
+  addressCheckbox.setAttribute('type', 'checkbox');
+  addressCheckbox.setAttribute('id', 'addressCheckbox');
+  checkboxHolder.appendChild(addressCheckbox);
+
+  var checkboxText = document.createElement('div');
+  checkboxText.className = 'checkboxText';
+  checkboxText.textContent = "Billing adress same as shipping address.";
+  checkboxHolder.appendChild(checkboxText);
+
+  var paymentAddressBox = document.createElement('div');
+  paymentAddressBox.className = 'columnBox';
+  paymentAddressBox.setAttribute('id', 'paymentAddressBox');
+  paymentBox.appendChild(paymentAddressBox);
+
+  var paymentColumn1 = document.createElement('div');
+  paymentColumn1.className = "paymentColumn1";
+  paymentAddressBox.appendChild(paymentColumn1);
+
+  var payFirstName = document.createElement('input');
+  payFirstName.className = 'detailInput';
+  payFirstName.setAttribute('type', 'text');
+  payFirstName.setAttribute('placeholder', 'First Name')
+  paymentColumn1.appendChild(payFirstName);
+
+  var payAddress = document.createElement('input');
+  payAddress.className = 'detailInput';
+  payAddress.setAttribute('type', 'text');
+  payAddress.setAttribute('placeholder', 'Address')
+  paymentColumn1.appendChild(payAddress);
+
+  var payCity = document.createElement('input');
+  payCity.className = 'detailInput';
+  payCity.setAttribute('type', 'text');
+  payCity.setAttribute('placeholder', 'City')
+  paymentColumn1.appendChild(payCity);
+
+  var paymentColumn2 = document.createElement('div');
+  paymentColumn2.className = "paymentColumn2";
+  paymentAddressBox.appendChild(paymentColumn2);
+
+  var payLastName = document.createElement('input');
+  payLastName.className = 'detailInput';
+  payLastName.setAttribute('type', 'text');
+  payLastName.setAttribute('placeholder', 'Last Name')
+  paymentColumn2.appendChild(payLastName);
+
+  var payState = document.createElement('input');
+  payState.className = 'detailInput';
+  payState.setAttribute('type', 'text');
+  payState.setAttribute('placeholder', 'State')
+  paymentColumn2.appendChild(payState);
+
+  var payZip = document.createElement('input');
+  payZip.className = 'detailInput';
+  payZip.setAttribute('type', 'text');
+  payZip.setAttribute('placeholder', 'Zip Code')
+  paymentColumn2.appendChild(payZip);
+
+  var cardDetailBox = document.createElement('div');
+  cardDetailBox.className = 'cardDetailBox';
+  paymentBox.appendChild(cardDetailBox);
+
+  var cardColumn1 = document.createElement('div');
+  cardColumn1.className = "cardColumn1";
+  cardDetailBox.appendChild(cardColumn1);
+
+  var cardType = document.createElement('input');
+  cardType.className = 'detailInput';
+  cardType.setAttribute('type', 'text');
+  cardType.setAttribute('placeholder', 'Card Type')
+  cardColumn1.appendChild(cardType);
+
+  var cardNumber = document.createElement('input');
+  cardNumber.className = 'detailInput';
+//  cardNumber.setAttribute('type', 'hidden');
+  cardNumber.setAttribute('placeholder', 'Card Number')
+  cardColumn1.appendChild(cardNumber);
+
+  var cardColumn2 = document.createElement('div');
+  cardColumn2.className = "cardColumn2";
+  cardDetailBox.appendChild(cardColumn2);
+
+  var cardExpire = document.createElement('input');
+  cardExpire.className = 'detailInput';
+  cardExpire.setAttribute('type', 'text');
+  cardExpire.setAttribute('placeholder', 'Expiration Date')
+  cardColumn2.appendChild(cardExpire);
+
+  var reviewDeliveryBox = document.createElement('div');
+  reviewDeliveryBox.className = "reviewDeliveryBox";
+  formHolder.appendChild(reviewDeliveryBox);
+
+  var reviewDeliveryBoxTitle = document.createElement('div');
+  reviewDeliveryBoxTitle.className = 'boxTitle';
+  reviewDeliveryBoxTitle.textContent = "Review items and delivery Information";
+  reviewDeliveryBox.appendChild(reviewDeliveryBoxTitle);
+
+  var reviewDeliveryColumnBox = document.createElement('div');
+  reviewDeliveryColumnBox.className = 'columnBox';
+  reviewDeliveryBox.appendChild(reviewDeliveryColumnBox);
+
+  var reviewListBox = document.createElement('div');
+  reviewListBox.className = 'reviewColumn1';
+  reviewListBox.setAttribute('id', 'reviewListBox');
+  reviewDeliveryColumnBox.appendChild(reviewListBox);
+
+  var reviewShipping = document.createElement('div');
+  reviewShipping.className = 'reviewColumn2';
+  reviewDeliveryColumnBox.appendChild(reviewShipping);
+
+  var deliveryText = document.createElement('div');
+  deliveryText.className = 'deliveryText';
+  deliveryText.textContent = "Choose delivery option";
+  reviewShipping.appendChild(deliveryText);
+
+  var deliveryOptions = document.createElement('form');
+  deliveryOptions.setAttribute('id', 'deliveryOptions');
+  reviewShipping.appendChild(deliveryOptions);
+
+  var standardShipContainer = document.createElement('div');
+  standardShipContainer.setAttribute('id', 'ShipContainer');
+  deliveryOptions.appendChild(standardShipContainer);
+
+  var standardShip = document.createElement('input');
+  standardShip.setAttribute('type', 'radio');
+  standardShip.setAttribute('name', "shipping");
+  standardShip.setAttribute('id', 'radioButton');
+  standardShip.setAttribute('value', 0);
+  standardShip.setAttribute('checked', 'checked');
+  standardShipContainer.appendChild(standardShip);
+
+  var standardShipText = document.createElement('span');
+  standardShipText.setAttribute('id', 'shipText');
+  standardShipText.textContent = "Ground: $FREE!";
+  standardShipContainer.appendChild(standardShipText);
+
+  var twoDayShipContainer = document.createElement('div');
+  twoDayShipContainer.setAttribute('id', 'ShipContainer');
+  deliveryOptions.appendChild(twoDayShipContainer);
+
+  var twoDayShip = document.createElement('input');
+  twoDayShip.setAttribute('type', 'radio');
+  twoDayShip.setAttribute('name', "shipping");
+  twoDayShip.setAttribute('id', 'radioButton');
+  twoDayShip.setAttribute('value', 9.99);
+  twoDayShipContainer.appendChild(twoDayShip);
+
+  var twoDayText = document.createElement('span');
+  twoDayText.setAttribute('id', 'shipText');
+  twoDayText.textContent = "Two Day Air: $9.99";
+  twoDayShipContainer.appendChild(twoDayText);
+
+  var nextDayShipContainer = document.createElement('div');
+  nextDayShipContainer.setAttribute('id', 'ShipContainer');
+  deliveryOptions.appendChild(nextDayShipContainer);
+
+  var nextDayAir = document.createElement('input');
+  nextDayAir.setAttribute('type', 'radio');
+  nextDayAir.setAttribute('name', "shipping");
+  nextDayAir.setAttribute('id', 'radioButton');
+  nextDayAir.setAttribute('value', 19.99);
+  nextDayShipContainer.appendChild(nextDayAir);
+
+  var nextDayText = document.createElement('span');
+  nextDayText.setAttribute('id', 'shipText');
+  nextDayText.textContent = "Next Day Air: $19.99";
+  nextDayShipContainer.appendChild(nextDayText);
+
+  var submitButton = document.createElement('button');
+  submitButton.setAttribute('id', 'submitButton');
+  submitButton.setAttribute('type', 'button');
+  submitButton.textContent = 'Submit Order';
+  runner.appendChild(submitButton);
+
+  var register = document.createElement('div');
+  register.setAttribute('id', 'registerBox');
+  runner.appendChild(register);
+
+  checkboxer(addressCheckbox);
+  registerLoader(register);
+  shipper(deliveryOptions);
+  miniListRun();
+  submitter(submitButton);
+}
+
+function submitter(submitButton){
+  submitButton.addEventListener('click', function() {
+    debagger();
+  })
+}
+
+function debagger() {
+  for (var i = 0; i < items.length; i++) {
+    items[i].quantity = 0;
+    bagQtyUpdater();
+    bagCostUpdater();
+    submitPageLoader();
+  }
+}
+
+function submitPageLoader() {
+  clear(aResult);
+
+  var outBox = document.createElement('div');
+  outBox.className = "outBox";
+  outBox.textContent = "Much Appreciated!";
+  aResult.appendChild(outBox);
+}
+
+
+function checkboxer(addressCheckbox) {
+  addressCheckbox.addEventListener('change', function() {
+    var paymentAddressBox = document.getElementById('paymentAddressBox');
+    if (addressCheckbox.checked) {
+      paymentAddressBox.setAttribute('hidden', 'hidden');
+    }
+    else {
+      paymentAddressBox.removeAttribute('hidden');
+    }
+  });
+}
+
+
+function registerLoader(location) {
+  clear(location);
+  var subTotal = document.createElement('div');
+  subTotal.className = 'subTotal';
+  location.appendChild(subTotal);
+
+  var subTotalText = document.createElement('div');
+  subTotalText.className = 'subTotalText';
+  subTotalText.setAttribute('id', 'runnerItem');
+  subTotalText.textContent = "Subtotal: ";
+  subTotal.appendChild(subTotalText);
+
+  var subTotalAmount = document.createElement('div');
+  subTotalAmount.className = 'subTotalAmount';
+  subTotalAmount.setAttribute('id', 'runnerItem');
+  subTotalAmount.textContent = "$" + costBeforeTaxes;
+  subTotal.appendChild(subTotalAmount);
+
+  var registerTax = document.createElement('div');
+  registerTax.className = 'registerTax';
+  location.appendChild(registerTax);
+
+  var registerTaxText = document.createElement('div');
+  registerTaxText.className = 'registerTaxText';
+  registerTaxText.setAttribute('id', 'runnerItem');
+  registerTaxText.textContent = "Taxes: ";
+  registerTax.appendChild(registerTaxText);
+
+  var registerTaxAmount = document.createElement('div');
+  registerTaxAmount.className = 'registerTaxAmount';
+  registerTaxAmount.setAttribute('id', 'runnerItem');
+  registerTaxAmount.textContent = "$" + taxes;
+  registerTax.appendChild(registerTaxAmount);
+
+  var registerShipping = document.createElement('div');
+  registerShipping.className = 'registerShipping';
+  location.appendChild(registerShipping);
+
+  var registerShippingText = document.createElement('div');
+  registerShippingText.className = 'registerShippingText';
+  registerShippingText.setAttribute('id', 'runnerItem');
+  registerShippingText.textContent = "Shipping: ";
+  registerShipping.appendChild(registerShippingText);
+
+  var registerShippingAmount = document.createElement('div');
+  registerShippingAmount.className = 'registerShippingAmount';
+  registerShippingAmount.setAttribute('id', 'runnerItem');
+  registerShippingAmount.textContent = "$" + shippingCost;
+  registerShipping.appendChild(registerShippingAmount);
+
+  var registerTotal = document.createElement('div');
+  registerTotal.className = 'registerTotal';
+  location.appendChild(registerTotal);
+
+  var registerTotalText = document.createElement('div');
+  registerTotalText.className = 'registerTotalText';
+  registerTotalText.setAttribute('id', 'runnerItemTotal');
+  registerTotalText.textContent = "Total: ";
+  registerTotal.appendChild(registerTotalText);
+
+  var registerTotalAmount = document.createElement('div');
+  registerTotalAmount.className = 'registerTotalAmount';
+  registerTotalAmount.setAttribute('id', 'runnerItemTotal');
+  registerTotalAmount.textContent = "$" + totalCost;
+  registerTotal.appendChild(registerTotalAmount);
+}
+
+
+function shipper(deliveryOptions) {
+  deliveryOptions.addEventListener('click', function() {
+    shipUpdater();
+  }, true);
+}
+
+function shipUpdater() {
+  var buttons = document.forms["deliveryOptions"].elements["shipping"];
+  for(var i = 0, max = buttons.length; i < max; i++) {
+    buttons[i].onclick = function() {
+        shipRunner(this.value);
+    }
+}
+}
+
+function shipRunner(value) {
+  shippingCost = value;
+  bagCostUpdater();
+  var register = document.getElementById('registerBox');
+  registerLoader(register);
+}
+
+function miniListRun() {
+  for (var i = 0; i < items.length; i++) {
+    if (items[i].quantity > 0) {
+    listMiniItems(i);
+    }
+  }
+}
+
+
+function listMiniItems(index) {
+  var reviewListBox = document.getElementById('reviewListBox');
+
+  var title = document.createElement('div');
+  title.setAttribute('id', 'subTitle');
+  title.textContent = "Items";
+  reviewListBox.appendChild(title);
+
+  var itemBox = document.createElement('div');
+  itemBox.className = "reviewItemBox";
+  reviewListBox.appendChild(itemBox);
+
+  var image = document.createElement('img');
+  image.className = "miniReviewPicture";
+  image.setAttribute('src', items[index].image);
+  itemBox.appendChild(image);
+
+
+  var name = document.createElement('h3');
+  name.className = 'name';
+  name.textContent = items[index].name;
+  itemBox.appendChild(name);
+
+  var maker = document.createElement('h4');
+  maker.className = 'maker';
+  maker.textContent = items[index].manufacturer;
+  itemBox.appendChild(maker);
+
+  var itemQuantity = document.createElement('div');
+  itemQuantity.className = 'itemQuantity';
+  itemQuantity.textContent = items[index].quantity;
+  itemQuantity.setAttribute('id', 'runnerItem');
+  itemBox.appendChild(itemQuantity);
+
+  var itemCost = document.createElement('div');
+  itemCost.className = 'itemCost';
+  itemCost.textContent = "$" + items[index].price;
+  itemCost.setAttribute('id', 'runnerItem');
+  itemBox.appendChild(itemCost);
+
+  var itemTotal = document.createElement('div');
+  itemTotal.className = 'itemTotal';
+  itemTotal.textContent = "$" + (items[index].quantity * items[index].price).toFixed(2);
+  itemTotal.setAttribute('id', 'runnerItem');
+  itemBox.appendChild(itemTotal);
 }
 
 aSearch.addEventListener('click', function() {
