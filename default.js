@@ -629,7 +629,7 @@ function checkOutLoader() {
 
   var checkboxText = document.createElement('div');
   checkboxText.className = 'checkboxText';
-  checkboxText.textContent = "Billing adress same as shipping address.";
+  checkboxText.textContent = "Billing address same as shipping address.";
   checkboxHolder.appendChild(checkboxText);
 
   var paymentAddressBox = document.createElement('div');
@@ -717,7 +717,7 @@ function checkOutLoader() {
 
   var reviewDeliveryBoxTitle = document.createElement('div');
   reviewDeliveryBoxTitle.className = 'boxTitle';
-  reviewDeliveryBoxTitle.textContent = "Review items and delivery Information";
+  reviewDeliveryBoxTitle.textContent = "Review items and delivery information";
   reviewDeliveryBox.appendChild(reviewDeliveryBoxTitle);
 
   var reviewDeliveryColumnBox = document.createElement('div');
@@ -810,6 +810,7 @@ function checkOutLoader() {
 
 function submitter(submitButton){
   submitButton.addEventListener('click', function() {
+    shipRunner(0)
     debagger();
   })
 }
@@ -828,7 +829,7 @@ function submitPageLoader() {
 
   var outBox = document.createElement('div');
   outBox.className = "outBox";
-  outBox.textContent = "Much Appreciated!";
+  outBox.textContent = "Much Appreciated! Your order is on it's way.";
   aResult.appendChild(outBox);
 }
 
