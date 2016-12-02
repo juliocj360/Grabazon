@@ -161,6 +161,7 @@ button {
 
 #registerBox {
   float: right;
+  overflow: auto;
 }
 
 .innerRunner {
@@ -218,6 +219,8 @@ button {
 
 #submitButton {
   display: block;
+  float: right;
+  clear: right;
 }
 
 .formHolder {

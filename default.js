@@ -24,7 +24,7 @@ var items = [
     image3: "https://images-na.ssl-images-amazon.com/images/I/81UkjOz%2B6kL._SL1500_.jpg"
   },
   {
-    name: "DUPLO Disney Sofia the First Magical Carriage Building Kit",
+    name: "DUPLO Disney Sofia the First",
     manufacturer: "Lego",
     shortName: "sofia",
     quantity: 0,
@@ -84,6 +84,7 @@ var bagQuantity = 0;
 var shippingCost = 0;
 var tax = 0;
 var taxes = 0;
+var checkedRadio = document.getElementById('radioButton1');
 
 function eraseText() {
     document.getElementById("look-up").value = "";
@@ -184,6 +185,7 @@ function itemDetail(index) {
   var image = document.createElement('img');
   image.className = "mainPicture";
   image.setAttribute('src', items[index].image);
+  image.setAttribute('id', 'mainImage');
   imagesBox.appendChild(image);
 
   var image1 = document.createElement('img');
@@ -222,6 +224,17 @@ function itemDetail(index) {
   detailBox.appendChild(description);
 
   grabItems(index);
+  focusImage(image1);
+  focusImage(image2);
+  focusImage(image3);
+}
+
+function focusImage(image) {
+  var newImage = image.getAttribute('src');
+  var mainImage = document.getElementById('mainImage');
+  image.addEventListener('mouseover', function() {
+    mainImage.setAttribute('src', newImage);
+  });
 }
 
 function grabItems(index) {
@@ -344,50 +357,7 @@ function bagReview() {
   registerTax.className = 'registerTax';
   register.appendChild(registerTax);
 
-  var registerTaxText = document.createElement('div');
-  registerTaxText.className = 'registerTaxText';
-  registerTaxText.setAttribute('id', 'runnerItem');
-  registerTaxText.textContent = "Taxes: ";
-  registerTax.appendChild(registerTaxText);
-
-  var registerTaxAmount = document.createElement('div');
-  registerTaxAmount.className = 'registerTaxAmount';
-  registerTaxAmount.setAttribute('id', 'runnerItem');
-  registerTaxAmount.textContent = "$" + taxes;
-  registerTax.appendChild(registerTaxAmount);
-
-  var registerShipping = document.createElement('div');
-  registerShipping.className = 'registerShipping';
-  register.appendChild(registerShipping);
-
-  var registerShippingText = document.createElement('div');
-  registerShippingText.className = 'registerShippingText';
-  registerShippingText.setAttribute('id', 'runnerItem');
-  registerShippingText.textContent = "Shipping: ";
-  registerShipping.appendChild(registerShippingText);
-
-  var registerShippingAmount = document.createElement('div');
-  registerShippingAmount.className = 'registerShippingAmount';
-  registerShippingAmount.setAttribute('id', 'runnerItem');
-  registerShippingAmount.textContent = "$" + shippingCost;
-  registerShipping.appendChild(registerShippingAmount);
-
-  var registerTotal = document.createElement('div');
-  registerTotal.className = 'registerTotal';
-  register.appendChild(registerTotal);
-
-  var registerTotalText = document.createElement('div');
-  registerTotalText.className = 'registerTotalText';
-  registerTotalText.setAttribute('id', 'runnerItemTotal');
-  registerTotalText.textContent = "Total: ";
-  registerTotal.appendChild(registerTotalText);
-
-  var registerTotalAmount = document.createElement('div');
-  registerTotalAmount.className = 'registerTotalAmount';
-  registerTotalAmount.setAttribute('id', 'runnerItemTotal');
-  registerTotalAmount.textContent = "$" + totalCost;
-  registerTotal.appendChild(registerTotalAmount);
-
+  registerLoader(register);
   bagCheck();
   checkoutListener(checkoutButton);
 }
@@ -729,6 +699,11 @@ function checkOutLoader() {
   reviewListBox.setAttribute('id', 'reviewListBox');
   reviewDeliveryColumnBox.appendChild(reviewListBox);
 
+  var title = document.createElement('div');
+  title.setAttribute('id', 'subTitle');
+  title.textContent = "Items";
+  reviewListBox.appendChild(title);
+
   var reviewShipping = document.createElement('div');
   reviewShipping.className = 'reviewColumn2';
   reviewDeliveryColumnBox.appendChild(reviewShipping);
@@ -749,9 +724,9 @@ function checkOutLoader() {
   var standardShip = document.createElement('input');
   standardShip.setAttribute('type', 'radio');
   standardShip.setAttribute('name', "shipping");
-  standardShip.setAttribute('id', 'radioButton');
-  standardShip.setAttribute('value', 0);
+  standardShip.setAttribute('id', 'radioButton1');
   standardShip.setAttribute('checked', 'checked');
+  standardShip.setAttribute('value', 0);
   standardShipContainer.appendChild(standardShip);
 
   var standardShipText = document.createElement('span');
@@ -766,7 +741,7 @@ function checkOutLoader() {
   var twoDayShip = document.createElement('input');
   twoDayShip.setAttribute('type', 'radio');
   twoDayShip.setAttribute('name', "shipping");
-  twoDayShip.setAttribute('id', 'radioButton');
+  twoDayShip.setAttribute('id', 'radioButton2');
   twoDayShip.setAttribute('value', 9.99);
   twoDayShipContainer.appendChild(twoDayShip);
 
@@ -782,7 +757,7 @@ function checkOutLoader() {
   var nextDayAir = document.createElement('input');
   nextDayAir.setAttribute('type', 'radio');
   nextDayAir.setAttribute('name', "shipping");
-  nextDayAir.setAttribute('id', 'radioButton');
+  nextDayAir.setAttribute('id', 'radioButton3');
   nextDayAir.setAttribute('value', 19.99);
   nextDayShipContainer.appendChild(nextDayAir);
 
@@ -791,15 +766,15 @@ function checkOutLoader() {
   nextDayText.textContent = "Next Day Air: $19.99";
   nextDayShipContainer.appendChild(nextDayText);
 
-  var submitButton = document.createElement('button');
-  submitButton.setAttribute('id', 'submitButton');
-  submitButton.setAttribute('type', 'button');
-  submitButton.textContent = 'Submit Order';
-  runner.appendChild(submitButton);
-
   var register = document.createElement('div');
   register.setAttribute('id', 'registerBox');
   runner.appendChild(register);
+
+  var submitButton = document.createElement('button');
+  submitButton.setAttribute('id', 'submitButton');
+  submitButton.setAttribute('type', 'button');
+  submitButton.textContent = "Submit Order";
+  runner.appendChild(submitButton);
 
   checkboxer(addressCheckbox);
   registerLoader(register);
@@ -810,9 +785,22 @@ function checkOutLoader() {
 
 function submitter(submitButton){
   submitButton.addEventListener('click', function() {
-    shipRunner(0)
-    debagger();
+    nameChecker();
+//    shipRunner(0)
+//    debagger();
   })
+}
+
+function nameChecker() {
+  var firstName = document.getElementById('firstName');
+  var nameLength = firstName.value.length;
+  if (nameLength < 1) {
+    alert("Please enter first name");
+  }
+  else {
+    shipRunner(0);
+    debagger();
+  }
 }
 
 function debagger() {
@@ -825,11 +813,11 @@ function debagger() {
 }
 
 function submitPageLoader() {
+  var Name = document.getElementById('firstName').value;
   clear(aResult);
-
   var outBox = document.createElement('div');
   outBox.className = "outBox";
-  outBox.textContent = "Much Appreciated! Your order is on it's way.";
+  outBox.textContent = "Much Appreciated " + Name + "! Your order is on it's way.";
   aResult.appendChild(outBox);
 }
 
@@ -923,11 +911,12 @@ function shipper(deliveryOptions) {
 
 function shipUpdater() {
   var buttons = document.forms["deliveryOptions"].elements["shipping"];
-  for(var i = 0, max = buttons.length; i < max; i++) {
+  for(var i = 0; i < buttons.length; i++) {
     buttons[i].onclick = function() {
-        shipRunner(this.value);
+      checkedRadio = document.getElementById(this.id);
+      shipRunner(this.value);
     }
-}
+  }
 }
 
 function shipRunner(value) {
@@ -948,11 +937,6 @@ function miniListRun() {
 
 function listMiniItems(index) {
   var reviewListBox = document.getElementById('reviewListBox');
-
-  var title = document.createElement('div');
-  title.setAttribute('id', 'subTitle');
-  title.textContent = "Items";
-  reviewListBox.appendChild(title);
 
   var itemBox = document.createElement('div');
   itemBox.className = "reviewItemBox";
