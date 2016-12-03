@@ -1,9 +1,9 @@
 html,
 body,
 #result,
-.detailBox,
-.reviewBox,
-.checkoutBox {
+.detail-box,
+.review-box,
+.checkout-box {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -17,7 +17,7 @@ input {
 }
 
 h1,
-.imagesBox,
+.images-box,
 .searcher {
   float: left;
   margin: 0;
@@ -45,10 +45,10 @@ p {
   float: left;
 }
 
-.resultBox,
+.result-box,
 .header,
 .runner,
-.imagesBox {
+.images-box {
   border-width: 2px;
   padding: 5px;
   border-color: black;
@@ -56,11 +56,11 @@ p {
   overflow: auto;
 }
 
-.resultBox {
+.result-box {
   cursor: pointer;
 }
 
-.imagesBox {
+.images-box {
   padding: 0;
 }
 
@@ -68,7 +68,7 @@ p {
   padding-top: 5px;
 }
 
-.mainPicture {
+.main-picture {
   width: 330px;
   height: 330px;
   float: left;
@@ -93,11 +93,11 @@ p {
   padding-top: 20px;
 }
 
-#qty {
+#quantity {
   height: 28px;
 }
 
-#qty,
+#quantity,
 #grabber {
   font-size: 20px;
   padding: 0;
@@ -130,46 +130,46 @@ button {
 }
 
 #review-button,
-#checkoutButton,
-#submitButton {
+#checkout-button,
+#submit-button {
   width: 125px;
 }
 
-.reviewPicture {
+.review-picture {
   width: 250px;
   height: 250px;
   float: left;
 }
 
-.miniReviewPicture {
+.mini-review-picture {
   width: 100px;
   height: 100px;
   float: left;
 }
 
-.reviewItemBox,
-.reviewHeader {
+.review-item-box,
+.review-header {
   overflow: auto;
   padding-bottom: 5px;
   position: relative;
 }
 
-.reviewItemBox {
+.review-item-box {
   border-top: 1px black solid;
   border-bottom: 1px black solid;
 }
 
-#registerBox {
+#register-box {
   float: right;
   overflow: auto;
 }
 
-.innerRunner {
+.inner-runner {
   float: right;
   overflow: auto;
 }
 
-#runnerItem {
+#runner-item {
   display: inline-block;
   margin-left: 5px;
   margin-right: 5px;
@@ -179,7 +179,7 @@ button {
   text-align: center;
 }
 
-#runnerItemTotal {
+#runner-item-total {
   display: inline-block;
   margin-left: 5px;
   margin-right: 5px;
@@ -194,8 +194,8 @@ button {
   padding-left: 13px;
 }
 
-#incrementerUp,
-#incrementerDown {
+#incrementer-up,
+#incrementer-down {
   display: inline;
   margin-left: 2px;
   margin-right: 2px;
@@ -217,79 +217,74 @@ button {
   color: blue;
 }
 
-#submitButton {
+#submit-button {
   display: block;
   float: right;
   clear: right;
 }
 
-.formHolder {
+.form-holder {
   overflow: auto;
   display: block;
   padding-left: 25px;
 }
 
-.detailInput {
+.detail-input {
   display: block;
 }
 
-.shippingColumn1,
-.shippingColumn2,
-.paymentColumn1,
-.paymentColumn2,
-.cardColumn1,
-.cardColumn2,
-.reviewColumn1,
-.reviewColumn2 {
+.shipping-column1,
+.shipping-column2,
+.payment-column1,
+.payment-column2,
+.card-column1,
+.card-column2,
+.review-column1,
+.review-column2 {
   display: inline;
   float: left;
   margin: 10px;
 }
 
-.checkboxText {
+.checkbox-text {
   display: inline;
   font-weight: 600;
   font-size: 10px;
 }
 
-.shippingBox,
-.paymentBox {
+.shipping-box,
+.payment-box {
   overflow: auto;
   display: block;
 }
 
-.boxTitle {
+.box-title {
   font-weight: 600;
 }
 
-.cardDetailBox {
+.card-detail-box {
   float: left;
   clear: left;
 }
 
-.radioButton {
-  float: left;
+#delivery-options {
   display: block;
 }
 
-#deliveryOptions {
-  display: block;
-}
-
-.reviewColumn1 {
+.review-column1 {
   min-width: 320px;
 }
 
-.shippingBox {
+.shipping-box {
   margin-top: 15px;
 }
 
-.reviewColumn2 {
+.review-column2 {
   border-left: 20px;
   padding-left: 20px;
 }
 
-.outBox {
+.out-box {
   text-align: center;
   font-weight: 600;
   font-size: 26px;

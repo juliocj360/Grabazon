@@ -84,7 +84,6 @@ var bagQuantity = 0;
 var shippingCost = 0;
 var tax = 0;
 var taxes = 0;
-var checkedRadio = document.getElementById('radioButton1');
 
 function eraseText() {
     document.getElementById("look-up").value = "";
@@ -108,7 +107,7 @@ function clear(element) {
 
 function showResult(index) {
   var resultBox = document.createElement('div');
-  resultBox.className = "resultBox";
+  resultBox.className = "result-box";
   resultBox.setAttribute('id', items[index].shortName);
   aResult.appendChild(resultBox);
 
@@ -138,7 +137,7 @@ function showResult(index) {
   resultBox.appendChild(description);
 
   getDetails(index);
-  }
+}
 
 function getDetails(index) {
   var aDetails = document.getElementById(items[index].shortName);
@@ -152,7 +151,7 @@ function itemDetail(index) {
   clear(aResult);
 
   var detailBox = document.createElement('div');
-  detailBox.className = "detailBox";
+  detailBox.className = "detail-box";
   aResult.appendChild(detailBox);
 
   var runner = document.createElement('div');
@@ -168,7 +167,7 @@ function itemDetail(index) {
   quantity.setAttribute('type', 'number');
   quantity.setAttribute('max', 10);
   quantity.setAttribute('min', 1);
-  quantity.setAttribute('id', 'qty');
+  quantity.setAttribute('id', 'quantity');
   quantity.setAttribute('value', 1);
   grabForm.appendChild(quantity);
 
@@ -179,11 +178,11 @@ function itemDetail(index) {
   grabForm.appendChild(grabber);
 
   var imagesBox = document.createElement('div');
-  imagesBox.className = "imagesBox";
+  imagesBox.className = "images-box";
   detailBox.appendChild(imagesBox);
 
   var image = document.createElement('img');
-  image.className = "mainPicture";
+  image.className = "main-picture";
   image.setAttribute('src', items[index].image);
   image.setAttribute('id', 'mainImage');
   imagesBox.appendChild(image);
@@ -238,27 +237,27 @@ function focusImage(image) {
 }
 
 function grabItems(index) {
-  var qtyGrabbed = document.getElementById('qty');
+  var quantityGrabbed = document.getElementById('quantity');
   var grabbed = document.getElementById('grabber');
   grabbed.addEventListener('click', function () {
-    qtyAdder(index, qtyGrabbed.value);
+    quantityAdder(index, quantityGrabbed.value);
   }, true)
   }
 
-function qtyAdder(index, qty) {
-  items[index].quantity += parseInt(qty, 10);
-  bagQtyUpdater();
+function quantityAdder(index, quantity) {
+  items[index].quantity += parseInt(quantity, 10);
+  bagQuantityUpdater();
   bagCostUpdater();
 }
 
-function bagQtyUpdater() {
+function bagQuantityUpdater() {
   var sum = 0;
   for (var i = 0; i < items.length; i++) {
     sum += items[i].quantity;
   }
   bagQuantity = sum;
-  var bagQty = document.getElementById('qty-total');
-  bagQty.textContent = "Total Items: " + bagQuantity;
+  var bagCount = document.getElementById('quantity-total');
+  bagCount.textContent = "Total Items: " + bagQuantity;
 }
 
 function bagCostUpdater() {
@@ -280,11 +279,10 @@ function bagCostUpdater() {
 }
 
 function bagReview() {
-  event.preventDefault();
   clear(aResult);
 
   var reviewBox = document.createElement('div');
-  reviewBox.className = "reviewBox";
+  reviewBox.className = "review-box";
   aResult.appendChild(reviewBox);
 
   var runner = document.createElement('div');
@@ -293,36 +291,36 @@ function bagReview() {
   reviewBox.appendChild(runner);
 
   var checkoutButton = document.createElement('button');
-  checkoutButton.setAttribute('id', 'checkoutButton');
+  checkoutButton.setAttribute('id', 'checkout-button');
   checkoutButton.setAttribute('type', 'button');
   checkoutButton.textContent = 'Proceed to Checkout';
   runner.appendChild(checkoutButton);
 
   var reviewHeader = document.createElement('div');
-  reviewHeader.className = "reviewHeader";
+  reviewHeader.className = "review-header";
   reviewBox.appendChild(reviewHeader);
 
   var innerRunner = document.createElement('div');
-  innerRunner.className = 'innerRunner';
+  innerRunner.className = 'inner-runner';
   innerRunner.setAttribute('id', 'headRunner');
   reviewHeader.appendChild(innerRunner);
 
   var itemQuantity = document.createElement('div');
   itemQuantity.className = 'itemQuantity';
   itemQuantity.textContent = "Quantity";
-  itemQuantity.setAttribute('id', 'runnerItem');
+  itemQuantity.setAttribute('id', 'runner-item');
   innerRunner.appendChild(itemQuantity);
 
   var itemCost = document.createElement('div');
   itemCost.className = 'itemCost';
   itemCost.textContent = "Item Cost";
-  itemCost.setAttribute('id', 'runnerItem');
+  itemCost.setAttribute('id', 'runner-item');
   innerRunner.appendChild(itemCost);
 
   var itemTotal = document.createElement('div');
   itemTotal.className = 'itemTotal';
   itemTotal.textContent = "Total";
-  itemTotal.setAttribute('id', 'runnerItem');
+  itemTotal.setAttribute('id', 'runner-item');
   innerRunner.appendChild(itemTotal);
 
   var reviewTitle = document.createElement('h3');
@@ -334,7 +332,7 @@ function bagReview() {
   reviewBox.appendChild(bagItemsBox);
 
   var register = document.createElement('div');
-  register.setAttribute('id', 'registerBox');
+  register.setAttribute('id', 'register-box');
   reviewBox.appendChild(register);
 
   var subTotal = document.createElement('div');
@@ -343,13 +341,13 @@ function bagReview() {
 
   var subTotalText = document.createElement('div');
   subTotalText.className = 'subTotalText';
-  subTotalText.setAttribute('id', 'runnerItem');
+  subTotalText.setAttribute('id', 'runner-item');
   subTotalText.textContent = "Subtotal: ";
   subTotal.appendChild(subTotalText);
 
   var subTotalAmount = document.createElement('div');
   subTotalAmount.className = 'subTotalAmount';
-  subTotalAmount.setAttribute('id', 'runnerItem');
+  subTotalAmount.setAttribute('id', 'runner-item');
   subTotalAmount.textContent = "$" + costBeforeTaxes;
   subTotal.appendChild(subTotalAmount);
 
@@ -390,7 +388,7 @@ function bagRun() {
 }
 
 function hideBagger() {
-  var register = document.getElementById('registerBox');
+  var register = document.getElementById('register-box');
   register.setAttribute('hidden', 'hidden');
 
   var checkoutRunner = document.getElementById('checkoutRunner');
@@ -404,34 +402,34 @@ function listItems(index) {
   var bagBox = document.getElementById('bagItemsBox');
 
   var itemBox = document.createElement('div');
-  itemBox.className = "reviewItemBox";
+  itemBox.className = "review-item-box";
   bagBox.appendChild(itemBox);
 
   var image = document.createElement('img');
-  image.className = "reviewPicture";
+  image.className = "review-picture";
   image.setAttribute('src', items[index].image);
   itemBox.appendChild(image);
 
   var innerRunner = document.createElement('div');
-  innerRunner.className = 'innerRunner';
+  innerRunner.className = 'inner-runner';
   itemBox.appendChild(innerRunner);
 
   var itemQuantity = document.createElement('div');
   itemQuantity.className = 'itemQuantity';
   itemQuantity.textContent = items[index].quantity;
-  itemQuantity.setAttribute('id', 'runnerItem');
+  itemQuantity.setAttribute('id', 'runner-item');
   innerRunner.appendChild(itemQuantity);
 
   var itemCost = document.createElement('div');
   itemCost.className = 'itemCost';
   itemCost.textContent = "$" + items[index].price;
-  itemCost.setAttribute('id', 'runnerItem');
+  itemCost.setAttribute('id', 'runner-item');
   innerRunner.appendChild(itemCost);
 
   var itemTotal = document.createElement('div');
   itemTotal.className = 'itemTotal';
   itemTotal.textContent = "$" + (items[index].quantity * items[index].price).toFixed(2);
-  itemTotal.setAttribute('id', 'runnerItem');
+  itemTotal.setAttribute('id', 'runner-item');
   innerRunner.appendChild(itemTotal);
 
   var incrementer = document.createElement('div');
@@ -442,13 +440,13 @@ function listItems(index) {
   var incrementerUp = document.createElement('div');
   incrementerUp.className = 'incrementer';
   incrementerUp.textContent = "+";
-  incrementerUp.setAttribute('id', 'incrementerUp');
+  incrementerUp.setAttribute('id', 'incrementer-up');
   incrementer.appendChild(incrementerUp);
 
   var incrementerDown = document.createElement('div');
   incrementerDown.className = 'incrementer';
   incrementerDown.textContent = "-";
-  incrementerDown.setAttribute('id', 'incrementerDown');
+  incrementerDown.setAttribute('id', 'incrementer-down');
   incrementer.appendChild(incrementerDown);
 
   var name = document.createElement('h3');
@@ -471,10 +469,9 @@ function listItems(index) {
   incrementDown(index, incrementerDown);
 }
 
-
 function incrementUp(index, incrementerUp) {
   incrementerUp.addEventListener('click', function () {
-    qtyAdder(index, 1);
+    quantityAdder(index, 1);
     bagReview();
   });
 }
@@ -487,7 +484,7 @@ function incrementDown(index, incrementerDown) {
 
 function minusOne(index) {
   if (items[index].quantity > 0) {
-    qtyAdder(index, -1);
+    quantityAdder(index, -1);
     bagReview();
   }
 }
@@ -500,7 +497,7 @@ function aRemover(index, remover) {
 
 function itemRemover(index) {
   items[index].quantity = 0;
-  qtyAdder(index,0);
+  quantityAdder(index,0);
   bagReview();
 }
 
@@ -509,7 +506,7 @@ function checkOutLoader() {
   clear(aResult);
 
   var checkoutBox = document.createElement('div');
-  checkoutBox.className = "checkoutBox";
+  checkoutBox.className = "checkout-box";
   aResult.appendChild(checkoutBox);
 
   var runner = document.createElement('div');
@@ -518,73 +515,73 @@ function checkOutLoader() {
   checkoutBox.appendChild(runner);
 
   var formHolder = document.createElement('div');
-  formHolder.className = "formHolder";
+  formHolder.className = "form-holder";
   checkoutBox.appendChild(formHolder);
 
   var shippingBox = document.createElement('div');
-  shippingBox.className = "shippingBox";
+  shippingBox.className = "shipping-box";
   formHolder.appendChild(shippingBox);
 
   var shippingBoxTitle = document.createElement('div');
-  shippingBoxTitle.className = 'boxTitle';
+  shippingBoxTitle.className = 'box-title';
   shippingBoxTitle.textContent = "Shipping Information";
   shippingBox.appendChild(shippingBoxTitle);
 
   var shippingColumnBox = document.createElement('div');
-  shippingColumnBox.className = 'columnBox';
+  shippingColumnBox.className = 'column-box';
   shippingBox.appendChild(shippingColumnBox);
 
   var shippingColumn1 = document.createElement('div');
-  shippingColumn1.className = "shippingColumn1";
+  shippingColumn1.className = "shipping-column1";
   shippingColumnBox.appendChild(shippingColumn1);
 
   var shipFirstName = document.createElement('input');
-  shipFirstName.className = 'detailInput';
+  shipFirstName.className = 'detail-input';
   shipFirstName.setAttribute('type', 'text');
   shipFirstName.setAttribute('placeholder', 'First Name');
   shipFirstName.setAttribute('id', 'firstName');
   shippingColumn1.appendChild(shipFirstName);
 
   var shipAddress = document.createElement('input');
-  shipAddress.className = 'detailInput';
+  shipAddress.className = 'detail-input';
   shipAddress.setAttribute('type', 'text');
   shipAddress.setAttribute('placeholder', 'Address')
   shippingColumn1.appendChild(shipAddress);
 
   var shipCity = document.createElement('input');
-  shipCity.className = 'detailInput';
+  shipCity.className = 'detail-input';
   shipCity.setAttribute('type', 'text');
   shipCity.setAttribute('placeholder', 'City')
   shippingColumn1.appendChild(shipCity);
 
   var shippingColumn2 = document.createElement('div');
-  shippingColumn2.className = "shippingColumn2";
+  shippingColumn2.className = "shipping-column2";
   shippingColumnBox.appendChild(shippingColumn2);
 
   var shipLastName = document.createElement('input');
-  shipLastName.className = 'detailInput';
+  shipLastName.className = 'detail-input';
   shipLastName.setAttribute('type', 'text');
   shipLastName.setAttribute('placeholder', 'Last Name')
   shippingColumn2.appendChild(shipLastName);
 
   var shipState = document.createElement('input');
-  shipState.className = 'detailInput';
+  shipState.className = 'detail-input';
   shipState.setAttribute('type', 'text');
   shipState.setAttribute('placeholder', 'State')
   shippingColumn2.appendChild(shipState);
 
   var shipZip = document.createElement('input');
-  shipZip.className = 'detailInput';
+  shipZip.className = 'detail-input';
   shipZip.setAttribute('type', 'text');
   shipZip.setAttribute('placeholder', 'Zip Code')
   shippingColumn2.appendChild(shipZip);
 
   var paymentBox = document.createElement('div');
-  paymentBox.className = "paymentBox";
+  paymentBox.className = "payment-box";
   formHolder.appendChild(paymentBox);
 
   var paymentBoxTitle = document.createElement('div');
-  paymentBoxTitle.className = 'boxTitle';
+  paymentBoxTitle.className = 'box-title';
   paymentBoxTitle.textContent = "Payment Information";
   paymentBox.appendChild(paymentBoxTitle);
 
@@ -598,85 +595,84 @@ function checkOutLoader() {
   checkboxHolder.appendChild(addressCheckbox);
 
   var checkboxText = document.createElement('div');
-  checkboxText.className = 'checkboxText';
+  checkboxText.className = 'checkbox-text';
   checkboxText.textContent = "Billing address same as shipping address.";
   checkboxHolder.appendChild(checkboxText);
 
   var paymentAddressBox = document.createElement('div');
-  paymentAddressBox.className = 'columnBox';
+  paymentAddressBox.className = 'column-box';
   paymentAddressBox.setAttribute('id', 'paymentAddressBox');
   paymentBox.appendChild(paymentAddressBox);
 
   var paymentColumn1 = document.createElement('div');
-  paymentColumn1.className = "paymentColumn1";
+  paymentColumn1.className = "payment-column1";
   paymentAddressBox.appendChild(paymentColumn1);
 
   var payFirstName = document.createElement('input');
-  payFirstName.className = 'detailInput';
+  payFirstName.className = 'detail-input';
   payFirstName.setAttribute('type', 'text');
   payFirstName.setAttribute('placeholder', 'First Name')
   paymentColumn1.appendChild(payFirstName);
 
   var payAddress = document.createElement('input');
-  payAddress.className = 'detailInput';
+  payAddress.className = 'detail-input';
   payAddress.setAttribute('type', 'text');
   payAddress.setAttribute('placeholder', 'Address')
   paymentColumn1.appendChild(payAddress);
 
   var payCity = document.createElement('input');
-  payCity.className = 'detailInput';
+  payCity.className = 'detail-input';
   payCity.setAttribute('type', 'text');
   payCity.setAttribute('placeholder', 'City')
   paymentColumn1.appendChild(payCity);
 
   var paymentColumn2 = document.createElement('div');
-  paymentColumn2.className = "paymentColumn2";
+  paymentColumn2.className = "payment-column2";
   paymentAddressBox.appendChild(paymentColumn2);
 
   var payLastName = document.createElement('input');
-  payLastName.className = 'detailInput';
+  payLastName.className = 'detail-input';
   payLastName.setAttribute('type', 'text');
   payLastName.setAttribute('placeholder', 'Last Name')
   paymentColumn2.appendChild(payLastName);
 
   var payState = document.createElement('input');
-  payState.className = 'detailInput';
+  payState.className = 'detail-input';
   payState.setAttribute('type', 'text');
   payState.setAttribute('placeholder', 'State')
   paymentColumn2.appendChild(payState);
 
   var payZip = document.createElement('input');
-  payZip.className = 'detailInput';
+  payZip.className = 'detail-input';
   payZip.setAttribute('type', 'text');
   payZip.setAttribute('placeholder', 'Zip Code')
   paymentColumn2.appendChild(payZip);
 
   var cardDetailBox = document.createElement('div');
-  cardDetailBox.className = 'cardDetailBox';
+  cardDetailBox.className = 'card-detail-box';
   paymentBox.appendChild(cardDetailBox);
 
   var cardColumn1 = document.createElement('div');
-  cardColumn1.className = "cardColumn1";
+  cardColumn1.className = "card-column1";
   cardDetailBox.appendChild(cardColumn1);
 
   var cardType = document.createElement('input');
-  cardType.className = 'detailInput';
+  cardType.className = 'detail-input';
   cardType.setAttribute('type', 'text');
   cardType.setAttribute('placeholder', 'Card Type')
   cardColumn1.appendChild(cardType);
 
   var cardNumber = document.createElement('input');
-  cardNumber.className = 'detailInput';
-//  cardNumber.setAttribute('type', 'hidden');
+  cardNumber.className = 'detail-input';
   cardNumber.setAttribute('placeholder', 'Card Number')
   cardColumn1.appendChild(cardNumber);
 
   var cardColumn2 = document.createElement('div');
-  cardColumn2.className = "cardColumn2";
+  cardColumn2.className = "card-column2";
   cardDetailBox.appendChild(cardColumn2);
 
   var cardExpire = document.createElement('input');
-  cardExpire.className = 'detailInput';
+  cardExpire.className = 'detail-input';
   cardExpire.setAttribute('type', 'text');
   cardExpire.setAttribute('placeholder', 'Expiration Date')
   cardColumn2.appendChild(cardExpire);
@@ -686,16 +682,16 @@ function checkOutLoader() {
   formHolder.appendChild(reviewDeliveryBox);
 
   var reviewDeliveryBoxTitle = document.createElement('div');
-  reviewDeliveryBoxTitle.className = 'boxTitle';
+  reviewDeliveryBoxTitle.className = 'box-title';
   reviewDeliveryBoxTitle.textContent = "Review items and delivery information";
   reviewDeliveryBox.appendChild(reviewDeliveryBoxTitle);
 
   var reviewDeliveryColumnBox = document.createElement('div');
-  reviewDeliveryColumnBox.className = 'columnBox';
+  reviewDeliveryColumnBox.className = 'column-box';
   reviewDeliveryBox.appendChild(reviewDeliveryColumnBox);
 
   var reviewListBox = document.createElement('div');
-  reviewListBox.className = 'reviewColumn1';
+  reviewListBox.className = 'review-column1';
   reviewListBox.setAttribute('id', 'reviewListBox');
   reviewDeliveryColumnBox.appendChild(reviewListBox);
 
@@ -705,7 +701,7 @@ function checkOutLoader() {
   reviewListBox.appendChild(title);
 
   var reviewShipping = document.createElement('div');
-  reviewShipping.className = 'reviewColumn2';
+  reviewShipping.className = 'review-column2';
   reviewDeliveryColumnBox.appendChild(reviewShipping);
 
   var deliveryText = document.createElement('div');
@@ -714,7 +710,7 @@ function checkOutLoader() {
   reviewShipping.appendChild(deliveryText);
 
   var deliveryOptions = document.createElement('form');
-  deliveryOptions.setAttribute('id', 'deliveryOptions');
+  deliveryOptions.setAttribute('id', 'delivery-options');
   reviewShipping.appendChild(deliveryOptions);
 
   var standardShipContainer = document.createElement('div');
@@ -767,11 +763,11 @@ function checkOutLoader() {
   nextDayShipContainer.appendChild(nextDayText);
 
   var register = document.createElement('div');
-  register.setAttribute('id', 'registerBox');
+  register.setAttribute('id', 'register-box');
   runner.appendChild(register);
 
   var submitButton = document.createElement('button');
-  submitButton.setAttribute('id', 'submitButton');
+  submitButton.setAttribute('id', 'submit-button');
   submitButton.setAttribute('type', 'button');
   submitButton.textContent = "Submit Order";
   runner.appendChild(submitButton);
@@ -780,60 +776,53 @@ function checkOutLoader() {
   registerLoader(register);
   shipper(deliveryOptions);
   miniListRun();
-  submitter(submitButton);
+  submitter(submitButton, shipFirstName);
 }
 
-function submitter(submitButton){
+function submitter(submitButton, shipFirstName){
   submitButton.addEventListener('click', function() {
-    nameChecker();
-//    shipRunner(0)
-//    debagger();
+    nameChecker(shipFirstName);
   })
 }
 
-function nameChecker() {
-  var firstName = document.getElementById('firstName');
-  var nameLength = firstName.value.length;
+function nameChecker(shipFirstName) {
+  var nameLength = shipFirstName.value.length;
   if (nameLength < 1) {
     alert("Please enter first name");
   }
   else {
     shipRunner(0);
-    debagger();
+    debagger(shipFirstName);
   }
 }
 
-function debagger() {
+function debagger(shipFirstName) {
   for (var i = 0; i < items.length; i++) {
     items[i].quantity = 0;
-    bagQtyUpdater();
+    bagQuantityUpdater();
     bagCostUpdater();
-    submitPageLoader();
+    submitPageLoader(shipFirstName);
   }
 }
 
-function submitPageLoader() {
-  var Name = document.getElementById('firstName').value;
+function submitPageLoader(shipFirstName) {
+  var Name = shipFirstName.value;
   clear(aResult);
   var outBox = document.createElement('div');
-  outBox.className = "outBox";
+  outBox.className = "out-box";
   outBox.textContent = "Much Appreciated " + Name + "! Your order is on it's way.";
   aResult.appendChild(outBox);
 }
 
-
 function checkboxer(addressCheckbox) {
   addressCheckbox.addEventListener('change', function() {
     var paymentAddressBox = document.getElementById('paymentAddressBox');
-    if (addressCheckbox.checked) {
-      paymentAddressBox.setAttribute('hidden', 'hidden');
+    if (!addressCheckbox.checked) {
+      return paymentAddressBox.removeAttribute('hidden');
     }
-    else {
-      paymentAddressBox.removeAttribute('hidden');
-    }
+    paymentAddressBox.setAttribute('hidden', 'hidden');
   });
 }
-
 
 function registerLoader(location) {
   clear(location);
@@ -843,13 +832,13 @@ function registerLoader(location) {
 
   var subTotalText = document.createElement('div');
   subTotalText.className = 'subTotalText';
-  subTotalText.setAttribute('id', 'runnerItem');
+  subTotalText.setAttribute('id', 'runner-item');
   subTotalText.textContent = "Subtotal: ";
   subTotal.appendChild(subTotalText);
 
   var subTotalAmount = document.createElement('div');
   subTotalAmount.className = 'subTotalAmount';
-  subTotalAmount.setAttribute('id', 'runnerItem');
+  subTotalAmount.setAttribute('id', 'runner-item');
   subTotalAmount.textContent = "$" + costBeforeTaxes;
   subTotal.appendChild(subTotalAmount);
 
@@ -859,13 +848,13 @@ function registerLoader(location) {
 
   var registerTaxText = document.createElement('div');
   registerTaxText.className = 'registerTaxText';
-  registerTaxText.setAttribute('id', 'runnerItem');
+  registerTaxText.setAttribute('id', 'runner-item');
   registerTaxText.textContent = "Taxes: ";
   registerTax.appendChild(registerTaxText);
 
   var registerTaxAmount = document.createElement('div');
   registerTaxAmount.className = 'registerTaxAmount';
-  registerTaxAmount.setAttribute('id', 'runnerItem');
+  registerTaxAmount.setAttribute('id', 'runner-item');
   registerTaxAmount.textContent = "$" + taxes;
   registerTax.appendChild(registerTaxAmount);
 
@@ -875,13 +864,13 @@ function registerLoader(location) {
 
   var registerShippingText = document.createElement('div');
   registerShippingText.className = 'registerShippingText';
-  registerShippingText.setAttribute('id', 'runnerItem');
+  registerShippingText.setAttribute('id', 'runner-item');
   registerShippingText.textContent = "Shipping: ";
   registerShipping.appendChild(registerShippingText);
 
   var registerShippingAmount = document.createElement('div');
   registerShippingAmount.className = 'registerShippingAmount';
-  registerShippingAmount.setAttribute('id', 'runnerItem');
+  registerShippingAmount.setAttribute('id', 'runner-item');
   registerShippingAmount.textContent = "$" + shippingCost;
   registerShipping.appendChild(registerShippingAmount);
 
@@ -891,17 +880,16 @@ function registerLoader(location) {
 
   var registerTotalText = document.createElement('div');
   registerTotalText.className = 'registerTotalText';
-  registerTotalText.setAttribute('id', 'runnerItemTotal');
+  registerTotalText.setAttribute('id', 'runner-item-total');
   registerTotalText.textContent = "Total: ";
   registerTotal.appendChild(registerTotalText);
 
   var registerTotalAmount = document.createElement('div');
   registerTotalAmount.className = 'registerTotalAmount';
-  registerTotalAmount.setAttribute('id', 'runnerItemTotal');
+  registerTotalAmount.setAttribute('id', 'runner-item-total');
   registerTotalAmount.textContent = "$" + totalCost;
   registerTotal.appendChild(registerTotalAmount);
 }
-
 
 function shipper(deliveryOptions) {
   deliveryOptions.addEventListener('click', function() {
@@ -910,10 +898,9 @@ function shipper(deliveryOptions) {
 }
 
 function shipUpdater() {
-  var buttons = document.forms["deliveryOptions"].elements["shipping"];
+  var buttons = document.forms["delivery-options"].elements["shipping"];
   for(var i = 0; i < buttons.length; i++) {
     buttons[i].onclick = function() {
-      checkedRadio = document.getElementById(this.id);
       shipRunner(this.value);
     }
   }
@@ -922,7 +909,7 @@ function shipUpdater() {
 function shipRunner(value) {
   shippingCost = value;
   bagCostUpdater();
-  var register = document.getElementById('registerBox');
+  var register = document.getElementById('register-box');
   registerLoader(register);
 }
 
@@ -934,19 +921,17 @@ function miniListRun() {
   }
 }
 
-
 function listMiniItems(index) {
   var reviewListBox = document.getElementById('reviewListBox');
 
   var itemBox = document.createElement('div');
-  itemBox.className = "reviewItemBox";
+  itemBox.className = "review-item-box";
   reviewListBox.appendChild(itemBox);
 
   var image = document.createElement('img');
-  image.className = "miniReviewPicture";
+  image.className = "mini-review-picture";
   image.setAttribute('src', items[index].image);
   itemBox.appendChild(image);
-
 
   var name = document.createElement('h3');
   name.className = 'name';
@@ -961,19 +946,19 @@ function listMiniItems(index) {
   var itemQuantity = document.createElement('div');
   itemQuantity.className = 'itemQuantity';
   itemQuantity.textContent = items[index].quantity;
-  itemQuantity.setAttribute('id', 'runnerItem');
+  itemQuantity.setAttribute('id', 'runner-item');
   itemBox.appendChild(itemQuantity);
 
   var itemCost = document.createElement('div');
   itemCost.className = 'itemCost';
   itemCost.textContent = "$" + items[index].price;
-  itemCost.setAttribute('id', 'runnerItem');
+  itemCost.setAttribute('id', 'runner-item');
   itemBox.appendChild(itemCost);
 
   var itemTotal = document.createElement('div');
   itemTotal.className = 'itemTotal';
   itemTotal.textContent = "$" + (items[index].quantity * items[index].price).toFixed(2);
-  itemTotal.setAttribute('id', 'runnerItem');
+  itemTotal.setAttribute('id', 'runner-item');
   itemBox.appendChild(itemTotal);
 }
 
