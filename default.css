@@ -33,6 +33,9 @@ p {
 
 .header {
   overflow: auto;
+  background-color: black;
+  color: white;
+  padding: 5px;
 }
 
 #grab-bag {
@@ -43,29 +46,86 @@ p {
   height: 300px;
   width: 500px;
   float: left;
-}
-
-.result-box,
-.header,
-.runner,
-.images-box {
-  border-width: 2px;
-  padding: 5px;
-  border-color: black;
-  border-style: solid;
-  overflow: auto;
+  padding-right: 5px;
 }
 
 .result-box {
   cursor: pointer;
+  border-bottom: lightgrey solid 1px;
+  overflow: auto;
+  padding: 5px;
 }
 
 .images-box {
-  padding: 0;
+  overflow: auto;
+  padding: 5px;
 }
 
 .searcher {
-  padding-top: 5px;
+  top: 50%;
+  left: 50%;
+  display: inline;
+  min-width: 326px;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+  width: 70%;
+}
+
+.box {
+  left: 50%;
+  display: inline-block;
+  margin: 10px auto;
+  width: 20%;
+  height: 20px;
+  vertical-align: middle;
+}
+
+#search-box {
+  width: 70%;
+}
+
+input#look-up {
+  min-width: 300px;
+  width: 70%;
+  height: 20px;
+  background: rgb(78,89,113);
+  border: none;
+  font-size: 10px;
+  float: left;
+  color: white;
+  padding-left: 25px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  vertical-align: middle;
+}
+
+#logo {
+  float: left;
+  display: inline;
+  max-height: 80px;
+}
+
+span.icon {
+  position: absolute;
+  z-index: 1;
+  color: white;
+  padding-left: 5px;
+  padding-top: 1px;
+}
+
+#quantity {
+  position: absolute;
+  z-index: 1;
+  color: black;
+  border: rgb(78,89,113) solid 1px;
+  padding: 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  text-align: center;
+  height: 28px;
 }
 
 .main-picture {
@@ -90,21 +150,14 @@ p {
 .runner {
   float: right;
   height: 100%;
-  padding-top: 20px;
-}
-
-#quantity {
-  height: 28px;
+  padding: 20px 5px;
+  overflow: auto;
+  border-left: lightgrey solid 1px;
 }
 
 #quantity,
 #grabber {
   font-size: 20px;
-  padding: 0;
-  border: 0;
-  border-color: black;
-  border-style: solid;
-  border-width: 1px;
 }
 
 button#grabber {
@@ -113,6 +166,8 @@ button#grabber {
   cursor: -moz-grab;
   cursor: -webkit-grab;
   cursor: grab;
+  text-align: right;
+  padding-right: 10px;
 }
 
 #grabber:active {
@@ -131,14 +186,23 @@ button {
 
 #review-button,
 #checkout-button,
-#submit-button {
+#submit-button,
+#grabber {
   width: 125px;
+  background: rgb(78,89,113);
+  border: none;
+  font-size: 10px;
+  color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .review-picture {
   width: 250px;
   height: 250px;
   float: left;
+  padding: 5px;
 }
 
 .mini-review-picture {
@@ -148,15 +212,18 @@ button {
 }
 
 .review-item-box,
-.review-header {
+.review-header,
+#sub-title {
+  overflow: auto;
+  padding: 5px;
+  position: relative;
+  border-bottom: lightgrey solid 1px;
+}
+
+.delivery-text {
   overflow: auto;
   padding-bottom: 5px;
   position: relative;
-}
-
-.review-item-box {
-  border-top: 1px black solid;
-  border-bottom: 1px black solid;
 }
 
 #register-box {
@@ -179,6 +246,15 @@ button {
   text-align: center;
 }
 
+#register-item {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 60px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
 #runner-item-total {
   display: inline-block;
   margin-left: 5px;
@@ -186,7 +262,14 @@ button {
   min-width: 60px;
   font-weight: 600;
   font-size: 16px;
-  text-align: center;
+}
+
+.register-left {
+  text-align: right;
+}
+
+.register-right {
+  text-align: left;
 }
 
 .incrementer {
@@ -199,19 +282,19 @@ button {
   display: inline;
   margin-left: 2px;
   margin-right: 2px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 1px;
+  padding-right: 1px;
   font-weight: 600;
   font-size: 20px;
   cursor: pointer;
+  color: rgb(78,89,113);
 }
 
 #remover {
   position: absolute;
-  bottom: 5px;
-  left: 260px;
+  bottom: 10px;
+  left: 265px;
   cursor: pointer;
-  border-bottom: 1px black blue;
   font-size: 10px;
   font-weight: 600;
   color: blue;
@@ -231,6 +314,32 @@ button {
 
 .detail-input {
   display: block;
+  background: rgb(78,89,113);
+  border: none;
+  font-size: 10px;
+  color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  height: 14px;
+  width: 160px;
+  margin: 5px;
+  padding: 5px;
+}
+
+#delivery-options {
+  background: rgb(78,89,113);
+  border: none;
+  font-size: 12px;
+  color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#ship-text,
+#ship-container {
+  padding: 5px;
 }
 
 .shipping-column1,
