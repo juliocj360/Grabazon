@@ -73,7 +73,7 @@ var items = [
   }
 ];
 
-var aSearch = document.getElementById('search');
+var aSearch = document.getElementById('search-box');
 var aResult = document.getElementById('result');
 var lookUp = document.getElementById('look-up');
 var aReview = document.getElementById('review-button');
@@ -335,26 +335,6 @@ function bagReview() {
   register.setAttribute('id', 'register-box');
   reviewBox.appendChild(register);
 
-  var subTotal = document.createElement('div');
-  subTotal.className = 'subTotal';
-  register.appendChild(subTotal);
-
-  var subTotalText = document.createElement('div');
-  subTotalText.className = 'subTotalText';
-  subTotalText.setAttribute('id', 'runner-item');
-  subTotalText.textContent = "Subtotal: ";
-  subTotal.appendChild(subTotalText);
-
-  var subTotalAmount = document.createElement('div');
-  subTotalAmount.className = 'subTotalAmount';
-  subTotalAmount.setAttribute('id', 'runner-item');
-  subTotalAmount.textContent = "$" + costBeforeTaxes;
-  subTotal.appendChild(subTotalAmount);
-
-  var registerTax = document.createElement('div');
-  registerTax.className = 'registerTax';
-  register.appendChild(registerTax);
-
   registerLoader(register);
   bagCheck();
   checkoutListener(checkoutButton);
@@ -437,15 +417,13 @@ function listItems(index) {
   incrementer.setAttribute('id', 'incrementer');
   innerRunner.appendChild(incrementer);
 
-  var incrementerUp = document.createElement('div');
-  incrementerUp.className = 'incrementer';
-  incrementerUp.textContent = "+";
+  var incrementerUp = document.createElement('i');
+  incrementerUp.className = 'fa fa-plus-circle';
   incrementerUp.setAttribute('id', 'incrementer-up');
   incrementer.appendChild(incrementerUp);
 
-  var incrementerDown = document.createElement('div');
-  incrementerDown.className = 'incrementer';
-  incrementerDown.textContent = "-";
+  var incrementerDown = document.createElement('i');
+  incrementerDown.className = 'fa fa-minus-circle';
   incrementerDown.setAttribute('id', 'incrementer-down');
   incrementer.appendChild(incrementerDown);
 
@@ -696,7 +674,7 @@ function checkOutLoader() {
   reviewDeliveryColumnBox.appendChild(reviewListBox);
 
   var title = document.createElement('div');
-  title.setAttribute('id', 'subTitle');
+  title.setAttribute('id', 'sub-title');
   title.textContent = "Items";
   reviewListBox.appendChild(title);
 
@@ -705,7 +683,7 @@ function checkOutLoader() {
   reviewDeliveryColumnBox.appendChild(reviewShipping);
 
   var deliveryText = document.createElement('div');
-  deliveryText.className = 'deliveryText';
+  deliveryText.className = 'delivery-text';
   deliveryText.textContent = "Choose delivery option";
   reviewShipping.appendChild(deliveryText);
 
@@ -714,7 +692,7 @@ function checkOutLoader() {
   reviewShipping.appendChild(deliveryOptions);
 
   var standardShipContainer = document.createElement('div');
-  standardShipContainer.setAttribute('id', 'ShipContainer');
+  standardShipContainer.setAttribute('id', 'ship-container');
   deliveryOptions.appendChild(standardShipContainer);
 
   var standardShip = document.createElement('input');
@@ -726,12 +704,12 @@ function checkOutLoader() {
   standardShipContainer.appendChild(standardShip);
 
   var standardShipText = document.createElement('span');
-  standardShipText.setAttribute('id', 'shipText');
+  standardShipText.setAttribute('id', 'ship-text');
   standardShipText.textContent = "Ground: $FREE!";
   standardShipContainer.appendChild(standardShipText);
 
   var twoDayShipContainer = document.createElement('div');
-  twoDayShipContainer.setAttribute('id', 'ShipContainer');
+  twoDayShipContainer.setAttribute('id', 'ship-container');
   deliveryOptions.appendChild(twoDayShipContainer);
 
   var twoDayShip = document.createElement('input');
@@ -742,12 +720,12 @@ function checkOutLoader() {
   twoDayShipContainer.appendChild(twoDayShip);
 
   var twoDayText = document.createElement('span');
-  twoDayText.setAttribute('id', 'shipText');
+  twoDayText.setAttribute('id', 'ship-text');
   twoDayText.textContent = "Two Day Air: $9.99";
   twoDayShipContainer.appendChild(twoDayText);
 
   var nextDayShipContainer = document.createElement('div');
-  nextDayShipContainer.setAttribute('id', 'ShipContainer');
+  nextDayShipContainer.setAttribute('id', 'ship-container');
   deliveryOptions.appendChild(nextDayShipContainer);
 
   var nextDayAir = document.createElement('input');
@@ -758,7 +736,7 @@ function checkOutLoader() {
   nextDayShipContainer.appendChild(nextDayAir);
 
   var nextDayText = document.createElement('span');
-  nextDayText.setAttribute('id', 'shipText');
+  nextDayText.setAttribute('id', 'ship-text');
   nextDayText.textContent = "Next Day Air: $19.99";
   nextDayShipContainer.appendChild(nextDayText);
 
@@ -831,14 +809,14 @@ function registerLoader(location) {
   location.appendChild(subTotal);
 
   var subTotalText = document.createElement('div');
-  subTotalText.className = 'subTotalText';
-  subTotalText.setAttribute('id', 'runner-item');
+  subTotalText.className = 'register-left';
+  subTotalText.setAttribute('id', 'register-item');
   subTotalText.textContent = "Subtotal: ";
   subTotal.appendChild(subTotalText);
 
   var subTotalAmount = document.createElement('div');
-  subTotalAmount.className = 'subTotalAmount';
-  subTotalAmount.setAttribute('id', 'runner-item');
+  subTotalAmount.className = 'register-right';
+  subTotalAmount.setAttribute('id', 'register-item');
   subTotalAmount.textContent = "$" + costBeforeTaxes;
   subTotal.appendChild(subTotalAmount);
 
@@ -847,14 +825,14 @@ function registerLoader(location) {
   location.appendChild(registerTax);
 
   var registerTaxText = document.createElement('div');
-  registerTaxText.className = 'registerTaxText';
-  registerTaxText.setAttribute('id', 'runner-item');
+  registerTaxText.className = 'register-left';
+  registerTaxText.setAttribute('id', 'register-item');
   registerTaxText.textContent = "Taxes: ";
   registerTax.appendChild(registerTaxText);
 
   var registerTaxAmount = document.createElement('div');
-  registerTaxAmount.className = 'registerTaxAmount';
-  registerTaxAmount.setAttribute('id', 'runner-item');
+  registerTaxAmount.className = 'register-right';
+  registerTaxAmount.setAttribute('id', 'register-item');
   registerTaxAmount.textContent = "$" + taxes;
   registerTax.appendChild(registerTaxAmount);
 
@@ -863,14 +841,14 @@ function registerLoader(location) {
   location.appendChild(registerShipping);
 
   var registerShippingText = document.createElement('div');
-  registerShippingText.className = 'registerShippingText';
-  registerShippingText.setAttribute('id', 'runner-item');
+  registerShippingText.className = 'register-left';
+  registerShippingText.setAttribute('id', 'register-item');
   registerShippingText.textContent = "Shipping: ";
   registerShipping.appendChild(registerShippingText);
 
   var registerShippingAmount = document.createElement('div');
-  registerShippingAmount.className = 'registerShippingAmount';
-  registerShippingAmount.setAttribute('id', 'runner-item');
+  registerShippingAmount.className = 'register-right';
+  registerShippingAmount.setAttribute('id', 'register-item');
   registerShippingAmount.textContent = "$" + shippingCost;
   registerShipping.appendChild(registerShippingAmount);
 
@@ -879,13 +857,13 @@ function registerLoader(location) {
   location.appendChild(registerTotal);
 
   var registerTotalText = document.createElement('div');
-  registerTotalText.className = 'registerTotalText';
+  registerTotalText.className = 'register-left';
   registerTotalText.setAttribute('id', 'runner-item-total');
   registerTotalText.textContent = "Total: ";
   registerTotal.appendChild(registerTotalText);
 
   var registerTotalAmount = document.createElement('div');
-  registerTotalAmount.className = 'registerTotalAmount';
+  registerTotalAmount.className = 'register-right';
   registerTotalAmount.setAttribute('id', 'runner-item-total');
   registerTotalAmount.textContent = "$" + totalCost;
   registerTotal.appendChild(registerTotalAmount);
@@ -962,7 +940,7 @@ function listMiniItems(index) {
   itemBox.appendChild(itemTotal);
 }
 
-aSearch.addEventListener('click', function() {
+aSearch.addEventListener('submit', function() {
    event.preventDefault();
    searchText();
    eraseText();
