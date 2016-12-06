@@ -104,6 +104,7 @@ var shippingCost = 0;
 var tax = 0;
 var taxes = 0;
 var randomItem = 0;
+var lastSearch = false;
 
 function eraseText() {
     document.getElementById("look-up").value = "";
@@ -115,6 +116,7 @@ function searchText() {
     var itemText = items[i].name + items[i].manufacturer + items[i].price + items[i].description + items[i].department;
     if (itemText.toLowerCase().indexOf(lookUp.value.toLowerCase()) > -1) {
       showResult(i);
+      lastSearch = lookUp.value;
     }
   }
 }
@@ -310,6 +312,11 @@ function itemDetail(index) {
   grabber.textContent = 'Grab Item!';
   grabForm.appendChild(grabber);
 
+  var backButton = document.createElement('div');
+  backButton.setAttribute('id', 'back-button');
+  backButton.textContent = "Back to Search Results";
+  runner.appendChild(backButton);
+
   var imagesBox = document.createElement('div');
   imagesBox.className = "images-box";
   detailBox.appendChild(imagesBox);
@@ -355,11 +362,33 @@ function itemDetail(index) {
   description.textContent = items[index].description;
   detailBox.appendChild(description);
 
+  backListener(backButton);
   grabItems(index);
   focusImage(image1);
   focusImage(image2);
   focusImage(image3);
   dealUpdater(index, price);
+}
+
+function backListener(backButton) {
+  if (lastSearch === false) {
+    backButton.setAttribute('id', 'hidden');
+  }
+  else {
+    backButton.addEventListener('click', function() {
+    backSearch();
+    });
+  }
+}
+
+function backSearch () {
+clear(aResult);
+for (var i = 0; i < items.length; i++) {
+  var itemText = items[i].name + items[i].manufacturer + items[i].price + items[i].description + items[i].department;
+  if (itemText.toLowerCase().indexOf(lastSearch.toLowerCase()) > -1) {
+    showResult(i);
+    }
+  }
 }
 
 function focusImage(image) {
@@ -434,11 +463,20 @@ function bagReview() {
   runner.setAttribute('id', 'checkoutRunner');
   reviewBox.appendChild(runner);
 
+  var register = document.createElement('div');
+  register.setAttribute('id', 'register-box');
+  runner.appendChild(register);
+
   var checkoutButton = document.createElement('button');
   checkoutButton.setAttribute('id', 'checkout-button');
   checkoutButton.setAttribute('type', 'button');
   checkoutButton.textContent = 'Proceed to Checkout';
   runner.appendChild(checkoutButton);
+
+  var backButton = document.createElement('div');
+  backButton.setAttribute('id', 'back-button');
+  backButton.textContent = "Back to Search Results";
+  runner.appendChild(backButton);
 
   var reviewHeader = document.createElement('div');
   reviewHeader.className = "review-header";
@@ -475,10 +513,7 @@ function bagReview() {
   bagItemsBox.setAttribute('id', 'bagItemsBox');
   reviewBox.appendChild(bagItemsBox);
 
-  var register = document.createElement('div');
-  register.setAttribute('id', 'register-box');
-  reviewBox.appendChild(register);
-
+  backListener(backButton);
   registerLoader(register);
   bagCheck();
   checkoutListener(checkoutButton);
@@ -917,6 +952,13 @@ function checkOutLoader() {
   submitButton.textContent = "Submit Order";
   runner.appendChild(submitButton);
 
+  var backButton = document.createElement('button');
+  backButton.setAttribute('id', 'back-button');
+  backButton.setAttribute('type', 'button')
+  backButton.textContent = "Back to Search Results";
+  runner.appendChild(backButton);
+
+  backListener(backButton);
   checkboxer(addressCheckbox);
   registerLoader(register);
   shipper(deliveryOptions);

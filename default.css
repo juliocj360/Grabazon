@@ -44,7 +44,7 @@ p {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   overflow: auto;
 }
 
@@ -193,13 +193,14 @@ span.icon {
 }
 
 button#grabber {
-  width: 120px;
+  width: 135px;
   height: 30px;
   cursor: -moz-grab;
   cursor: -webkit-grab;
   cursor: grab;
   text-align: right;
   padding-right: 10px;
+  float: right;
 }
 
 #grabber:active {
@@ -219,8 +220,9 @@ button {
 #review-button,
 #checkout-button,
 #submit-button,
-#grabber {
-  width: 125px;
+#grabber,
+#back-button {
+  width: 135px;
   background: rgb(78,89,113);
   border: none;
   font-size: 10px;
@@ -228,6 +230,24 @@ button {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  padding: 5px 0;
+}
+
+#checkout-button {
+  display: block;
+  margin-right: 0;
+  float: right;
+  clear: both;
+}
+
+#back-button {
+  display: block;
+  margin-top: 25px;
+  text-align: center;
+  float: right;
+  clear: both;
+  padding: 5px 0;
+  cursor: pointer;
 }
 
 .review-picture {
@@ -262,6 +282,12 @@ button {
 #register-box {
   float: right;
   overflow: auto;
+  display: block;
+  padding-bottom: 10px;
+}
+
+#hidden {
+  display: none;
 }
 
 .inner-runner {
@@ -355,7 +381,7 @@ button {
   -moz-border-radius: 5px;
   border-radius: 5px;
   height: 14px;
-  width: 160px;
+  width: 200px;
   margin: 5px;
   padding: 5px;
 }
