@@ -901,7 +901,6 @@ function checkOutLoader() {
   standardShip.setAttribute('type', 'radio');
   standardShip.setAttribute('name', "shipping");
   standardShip.setAttribute('id', 'radioButton1');
-  standardShip.setAttribute('checked', 'checked');
   standardShip.setAttribute('value', 0);
   standardShipContainer.appendChild(standardShip);
 
@@ -964,6 +963,22 @@ function checkOutLoader() {
   shipper(deliveryOptions);
   miniListRun();
   submitter(submitButton, shipFirstName);
+  radioChecker();
+}
+
+function radioChecker() {
+  var twoDay = document.getElementById('radioButton2');
+  var nextDay = document.getElementById('radioButton3');
+  var standardShip = document.getElementById('radioButton1')
+  if (Number(shippingCost) === 9.99) {
+    twoDay.setAttribute('checked', 'checked');
+  }
+  else if (Number(shippingCost) === 19.99) {
+    nextDay.setAttribute('checked', 'checked');
+  }
+  else {
+    standardShip.setAttribute('checked', 'checked');
+  }
 }
 
 function submitter(submitButton, shipFirstName){
