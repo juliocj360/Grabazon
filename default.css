@@ -1,12 +1,18 @@
 html,
 body,
 #result,
-.detail-box,
 .review-box,
 .checkout-box {
   margin: 0;
   padding: 0;
   height: 100%;
+}
+
+.detail-box {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  padding: 5px;
 }
 
 body,
@@ -32,10 +38,18 @@ p {
 }
 
 .header {
-  overflow: auto;
   background-color: black;
   color: white;
   padding: 5px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  overflow: auto;
+}
+
+#result {
+  margin-top: 90px;
 }
 
 #grab-bag {
@@ -47,18 +61,34 @@ p {
   width: 500px;
   float: left;
   padding-right: 5px;
+  cursor: pointer;
 }
 
 .result-box {
-  cursor: pointer;
   border-bottom: lightgrey solid 1px;
   overflow: auto;
   padding: 5px;
+  position: relative;
+}
+
+.quick-add {
+  position: absolute;
+  bottom: 5px;
+  left: 510px;
+  background: rgb(78,89,113);
+  border: none;
+  font-size: 16px;
+  color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
 }
 
 .images-box {
   overflow: auto;
-  padding: 5px;
+  padding-right: 5px;
 }
 
 .searcher {
@@ -91,7 +121,7 @@ input#look-up {
   height: 20px;
   background: rgb(78,89,113);
   border: none;
-  font-size: 10px;
+  font-size: 14px;
   color: white;
   padding-left: 25px;
   -webkit-border-radius: 5px;
@@ -130,16 +160,16 @@ span.icon {
 }
 
 .main-picture {
-  width: 330px;
-  height: 330px;
+  width: 400px;
+  height: 400px;
   float: left;
 }
 
 .picture1,
 .picture2,
 .picture3 {
-  width: 100px;
-  height: 100px;
+  width: 123px;
+  height: 123px;
   display: block;
 }
 
@@ -154,6 +184,7 @@ span.icon {
   padding: 20px 5px;
   overflow: auto;
   border-left: lightgrey solid 1px;
+  margin: 5px;
 }
 
 #quantity,
@@ -182,7 +213,7 @@ button {
 }
 
 #grab-bag {
-  margin-right: 0;
+  margin-right: 10px;
 }
 
 #review-button,
@@ -203,13 +234,14 @@ button {
   width: 250px;
   height: 250px;
   float: left;
-  padding: 5px;
+  padding-right: 5px;
 }
 
 .mini-review-picture {
   width: 100px;
   height: 100px;
   float: left;
+  padding-right: 5px;
 }
 
 .review-item-box,
@@ -382,7 +414,7 @@ button {
 }
 
 .review-column1 {
-  min-width: 320px;
+  min-width: 340px;
 }
 
 .shipping-box {
@@ -408,7 +440,7 @@ body {
 
 .deal-box {
   cursor: pointer;
-  margin-top: 50px;
+  margin-top: 100px;
   width: 60%;
   text-align: center;
   margin-left: auto;
@@ -427,7 +459,7 @@ body {
 .deal-box-title {
   padding: 5px;
   font-size: 26px;
-  font-weight: 600;
+  font-weight: 100;
   color: white;
   background: black;
   -webkit-border-radius: 5px;
@@ -448,4 +480,29 @@ body {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+}
+
+.new-price,
+.deal-text {
+  color: red;
+  padding: 0 5px;
+}
+
+.name {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 26px;
+  font-weight: 100;
+  color: white;
+  background: black;
+}
+
+#mini.name {
+  font-size: 16px;
+}
+
+#search-name {
+  cursor: pointer;
 }

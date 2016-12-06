@@ -205,17 +205,18 @@ function dealAssigner(index) {
 function showResult(index) {
   var resultBox = document.createElement('div');
   resultBox.className = "result-box";
-  resultBox.setAttribute('id', items[index].shortName);
   aResult.appendChild(resultBox);
 
   var image = document.createElement('img');
   image.className = "picture";
   image.setAttribute('src', items[index].image);
+  image.setAttribute('id', items[index].shortName);
   resultBox.appendChild(image);
 
   var name = document.createElement('h3');
   name.className = 'name';
   name.textContent = items[index].name;
+  name.setAttribute('id', 'search-name')
   resultBox.appendChild(name);
 
   var price = document.createElement('h4');
@@ -233,7 +234,18 @@ function showResult(index) {
   description.textContent = items[index].description;
   resultBox.appendChild(description);
 
-  getDetails(index);
+  var quickAdd = document.createElement('div');
+  quickAdd.className = 'quick-add';
+  quickAdd.setAttribute('id', 'quickAdd');
+  quickAdd.textContent = "Quick Add";
+  resultBox.appendChild(quickAdd);
+
+  quickAdd.addEventListener('click', function() {
+    quantityAdder(index, 1);
+  })
+
+  getDetails(index, name);
+  getDetails(index,image);
   dealUpdater(index, price);
 }
 
@@ -261,9 +273,8 @@ function priceUpdater(index, price) {
   price.appendChild(dealText);
 }
 
-function getDetails(index) {
-  var aDetails = document.getElementById(items[index].shortName);
-  aDetails.addEventListener('click', function () {
+function getDetails(index, el) {
+  el.addEventListener('click', function () {
     itemDetail(index);
   }, true)
 }
@@ -599,7 +610,7 @@ function bagPriceUpdater(index, itemCost, itemTotal) {
   var newTotal = document.createElement('div');
   newTotal.className = 'new-price';
   newTotal.setAttribute('id', 'runner-item');
-  newTotal.textContent = "$" + (items[index].dealPrice * items[index].quantity);
+  newTotal.textContent = "$" + (items[index].dealPrice * items[index].quantity).toFixed(2);
   itemTotal.appendChild(newTotal);
 }
 
@@ -1070,6 +1081,7 @@ function listMiniItems(index) {
   var name = document.createElement('h3');
   name.className = 'name';
   name.textContent = items[index].name;
+  name.setAttribute('id', 'mini');
   itemBox.appendChild(name);
 
   var maker = document.createElement('h4');
