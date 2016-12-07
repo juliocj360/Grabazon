@@ -105,12 +105,14 @@ var tax = 0;
 var taxes = 0;
 var randomItem = 0;
 var lastSearch = false;
+var resultsSum = 0;
 
 function eraseText() {
     document.getElementById("look-up").value = "";
 }
 
 function searchText() {
+  resultsSum = 0;
   clear(aResult);
   for (var i = 0; i < items.length; i++) {
     var itemText = items[i].name + items[i].manufacturer + items[i].price + items[i].description + items[i].department;
@@ -118,6 +120,24 @@ function searchText() {
       showResult(i);
       lastSearch = lookUp.value;
     }
+    else {
+      resultsSum += i;
+      noResultsChecker();
+    }
+  }
+}
+
+function noResultsChecker() {
+  var sum = 0;
+  for (var i = 0; i < items.length; i++) {
+    sum += i;
+    if (sum === resultsSum) {
+      var noResultsBox = document.createElement('div');
+      noResultsBox.className = 'no-results-box';
+      noResultsBox.textContent = "Sorry, no items by that name.  Try searching 'toys'";
+      aResult.appendChild(noResultsBox);
+    }
+    break;
   }
 }
 
