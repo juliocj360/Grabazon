@@ -478,6 +478,14 @@ body {
   border: 1px solid lightgrey;
 }
 
+.no-results-box {
+  margin-top: 150px;
+  width: 60%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .deal-picture {
   width: 90%;
 }
