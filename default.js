@@ -165,7 +165,7 @@ function clear(element) {
   }
 }
 
- function dealChecker() {
+function dealChecker() {
   clear(aResult);
   var date = new Date()
   var previousDate = localStorage.getItem('date');
@@ -446,7 +446,7 @@ function grabItems(index) {
   grabbed.addEventListener('click', function () {
     quantityAdder(index, quantityGrabbed.value);
   }, true)
-  }
+}
 
 function quantityAdder(index, quantity) {
   items[index].quantity += parseInt(quantity, 10);
