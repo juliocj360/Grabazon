@@ -2,9 +2,12 @@ var items = [
   {
     name: "Batboat Harbor Pursuit",
     shortName: "batboat",
+    number: 0,
     manufacturer: "Lego",
     quantity: 0,
     price: 29.99,
+    dealItem: false,
+    dealPrice: 26.99,
     description: "Accessories include capes for Batman and Robin; fold out the secret radar tower to track Deathstroke; evade the jetboat's flick torpedo missiles!",
     department: "toys",
     image: "http://www.gamerwithkids.com/wp-content/uploads/2016/02/LEGO-Super-Heroes-76034-the-Batboat-Harbor-Pursuit-Building-Kit-0-0.jpg",
@@ -14,9 +17,12 @@ var items = [
   {
     name: "CITY Ferry",
     shortName: "ferry",
+    number: 1,
     manufacturer: "Lego",
     quantity: 0,
     price: 19.99,
+    dealItem: false,
+    dealPrice: 17.99,
     description: "Features a Ferry with gates that can be raised and lowered and a space above the deck for the captain to pilot the boat",
     department: "toys",
     image: "https://farm6.staticflickr.com/5719/23600766096_8dfeab0e1c_c.jpg",
@@ -27,8 +33,11 @@ var items = [
     name: "DUPLO Disney Sofia the First",
     manufacturer: "Lego",
     shortName: "sofia",
+    number: 2,
     quantity: 0,
     price: 29.99,
+    dealItem: false,
+    dealPrice: 26.99,
     description: "Features a buildable carriage with turning wheels, and a revolving tree",
     department: "toys",
     image: "https://images-na.ssl-images-amazon.com/images/I/81kj%2BDEmIqL._SL1500_.jpg",
@@ -38,9 +47,12 @@ var items = [
   {
     name: "Connect 4 Game",
     shortName: "connect4",
+    number: 3,
     manufacturer: "Hasbro",
     quantity: 0,
     price: 6.99,
+    dealItem: false,
+    dealPrice: 6.29,
     description: "Classic Connect 4 game is disc-dropping fun. When you get 4 discs in a row you win!",
     department: "toys",
     image: "http://trusca.imageg.net/graphics/product_images/pTRUCA1-16021344enh-z6.jpg",
@@ -50,9 +62,12 @@ var items = [
   {
     name: "Battleship Game",
     shortName: "battleship",
+    number: 4,
     manufacturer: "Hasbro",
     quantity: 0,
     price: 9.11,
+    dealItem: false,
+    dealPrice: 8.19,
     description: "Classic Battleship game lets you hold head-to-head naval battles. If you can locate your enemy's ships you can destroy all 5 for the win!",
     department: "toys",
     image: "http://www.ultrabattleship.com/gfx/cover.jpg",
@@ -62,9 +77,12 @@ var items = [
   {
     name: "Uno",
     shortName: "uno",
+    number: 5,
     manufacturer: "Mattel",
     quantity: 0,
     price: 4.79,
+    dealItem: false,
+    dealPrice: 4.31,
     description: "Four suits of 25 cards each, plus the eight Wild cards Earn points from other players when you go out first. Reach 500 points to win the game!",
     department: "toys",
     image: "http://frenchuno.com/wp-content/uploads/2015/02/uno-cards1.jpg",
@@ -73,6 +91,7 @@ var items = [
   }
 ];
 
+var aHome = document.getElementById('logo');
 var aSearch = document.getElementById('search-box');
 var aResult = document.getElementById('result');
 var lookUp = document.getElementById('look-up');
@@ -84,6 +103,7 @@ var bagQuantity = 0;
 var shippingCost = 0;
 var tax = 0;
 var taxes = 0;
+var randomItem = 0;
 
 function eraseText() {
     document.getElementById("look-up").value = "";
@@ -103,6 +123,83 @@ function clear(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
+}
+
+ function dealChecker() {
+  clear(aResult);
+  var date = new Date()
+  var previousDate = localStorage.getItem('date');
+  var previousRandomItem = Number(localStorage.getItem('randomItem'));
+
+  if (date.getDate() === Number(previousDate)) {
+    dealLoader(previousRandomItem);
+  }
+  else {
+    dealPicker();
+  }
+}
+
+function dealLoader(index) {
+  var dealBox = document.createElement('div');
+  dealBox.className = 'deal-box';
+  aResult.appendChild(dealBox);
+
+  var dealBoxTitle = document.createElement('div');
+  dealBoxTitle.className = 'deal-box-title';
+  dealBoxTitle.textContent = "GRAB OF THE DAY";
+  dealBox.appendChild(dealBoxTitle);
+
+  var grabImage = document.createElement('img');
+  grabImage.className = 'mini-grab';
+  grabImage.setAttribute('src', 'https://lh3.googleusercontent.com/HSTrQGXsSn6iOtW5JgJJgVj1dgmToq9Id_Zo1zK7N02Uzyj0o1OtFHnRG1nkwZG7HxreDbzeD6Q23e_wfpJymFcipLY-OPMy=w1440-h900-rw-no');
+  dealBoxTitle.appendChild(grabImage);
+
+  var image = document.createElement('img');
+  image.className = 'deal-picture';
+  image.setAttribute('src', items[index].image);
+  dealBox.appendChild(image);
+
+  var dealBoxName = document.createElement('div');
+  dealBoxName.className = 'deal-name';
+  dealBoxName.textContent = items[index].name;
+  dealBox.appendChild(dealBoxName);
+
+  var dealBoxListPrice = document.createElement('div');
+  dealBoxListPrice.className = 'deal-list-price'
+  dealBoxListPrice.textContent = "List Price $" + items[index].price;
+  dealBox.appendChild(dealBoxListPrice);
+
+  var dealBoxDealPrice = document.createElement('div');
+  dealBoxDealPrice.className = 'deal-price';
+  dealBoxDealPrice.textContent = "You Pay $" + items[index].dealPrice + " (10% off!)"
+  dealBox.appendChild(dealBoxDealPrice);
+
+  var dealSavingsText = document.createElement('div');
+  dealSavingsText.className = 'deal-savings'
+  dealSavingsText.textContent = "You are saving $" + (items[index].price - items[index].dealPrice).toFixed(2) + "!";
+  dealBox.appendChild(dealSavingsText);
+
+  dealAssigner(index);
+  getDealDetails(index, dealBox);
+}
+
+function getDealDetails(index, dealBox) {
+  dealBox.addEventListener('click', function () {
+    itemDetail(index);
+  }, true)
+}
+
+function dealPicker() {
+  var date = new Date()
+  randomItem = items[Math.floor(Math.random()*items.length)];
+  localStorage.setItem('randomItem', randomItem.number);
+  localStorage.setItem('date', date.getDate());
+
+  dealLoader(randomItem.number);
+}
+
+function dealAssigner(index) {
+  items[index].dealItem = true;
 }
 
 function showResult(index) {
@@ -137,6 +234,31 @@ function showResult(index) {
   resultBox.appendChild(description);
 
   getDetails(index);
+  dealUpdater(index, price);
+}
+
+function dealUpdater(index, price) {
+  if (items[index].dealItem === true) {
+    clear(price);
+    priceUpdater(index, price);
+  }
+}
+
+function priceUpdater(index, price) {
+  var oldPrice = document.createElement('span');
+  oldPrice.className = 'old-price';
+  oldPrice.textContent = "$" + items[index].price;
+  price.appendChild(oldPrice);
+
+  var newPrice = document.createElement('span');
+  newPrice.className = 'new-price';
+  newPrice.textContent = "$" + items[index].dealPrice;
+  price.appendChild(newPrice);
+
+  var dealText = document.createElement('span');
+  dealText.className = 'deal-text';
+  dealText.textContent = "YOU SAVE $" + (items[index].price - items[index].dealPrice).toFixed(2) + "!";
+  price.appendChild(dealText);
 }
 
 function getDetails(index) {
@@ -226,6 +348,7 @@ function itemDetail(index) {
   focusImage(image1);
   focusImage(image2);
   focusImage(image3);
+  dealUpdater(index, price);
 }
 
 function focusImage(image) {
@@ -261,12 +384,22 @@ function bagQuantityUpdater() {
 }
 
 function bagCostUpdater() {
+  var dealSum = 0;
+  var nonDealSum = 0;
   var sum = 0;
   for (var i = 0; i < items.length; i++) {
     var price = items[i].price;
     var quantity = items[i].quantity;
-    sum += price * quantity;
+    var dealPrice = items[i].dealPrice;
+    var dealCheck = items[i].dealItem;
+    if (dealCheck === true) {
+      dealSum += dealPrice * quantity;
+    }
+    else {
+      nonDealSum += price * quantity;
+    }
   }
+  sum += nonDealSum + dealSum;
   var fixedSum = sum.toFixed(2);
   var fixedShipping = parseFloat(shippingCost);
   costBeforeTaxes = Number(fixedSum);
@@ -445,6 +578,29 @@ function listItems(index) {
   aRemover(index, remover);
   incrementUp(index, incrementerUp);
   incrementDown(index, incrementerDown);
+  bagDealUpdater(index, itemCost, itemTotal);
+}
+
+function bagDealUpdater(index, itemCost, itemTotal) {
+  if (items[index].dealItem === true) {
+    clear(itemCost);
+    clear(itemTotal)
+    bagPriceUpdater(index, itemCost, itemTotal);
+  }
+}
+
+function bagPriceUpdater(index, itemCost, itemTotal) {
+  var newPrice = document.createElement('div');
+  newPrice.className = 'new-price';
+  newPrice.setAttribute('id', 'runner-item');
+  newPrice.textContent = "$" + items[index].dealPrice;
+  itemCost.appendChild(newPrice);
+
+  var newTotal = document.createElement('div');
+  newTotal.className = 'new-price';
+  newTotal.setAttribute('id', 'runner-item');
+  newTotal.textContent = "$" + (items[index].dealPrice * items[index].quantity);
+  itemTotal.appendChild(newTotal);
 }
 
 function incrementUp(index, incrementerUp) {
@@ -938,6 +1094,8 @@ function listMiniItems(index) {
   itemTotal.textContent = "$" + (items[index].quantity * items[index].price).toFixed(2);
   itemTotal.setAttribute('id', 'runner-item');
   itemBox.appendChild(itemTotal);
+
+  bagDealUpdater(index, itemCost, itemTotal);
 }
 
 aSearch.addEventListener('submit', function() {
@@ -948,4 +1106,12 @@ aSearch.addEventListener('submit', function() {
 
  aReview.addEventListener('click', function(){
    bagReview();
+ });
+
+ window.addEventListener('load', function() {
+   dealChecker();
+ })
+
+ aHome.addEventListener('click', function() {
+   dealChecker();
  });
