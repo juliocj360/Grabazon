@@ -49,7 +49,7 @@ p {
 }
 
 #result {
-  margin-top: 90px;
+  margin-top: 0;
 }
 
 #grab-bag {
@@ -160,8 +160,8 @@ span.icon {
 }
 
 .main-picture {
-  width: 400px;
-  height: 400px;
+  width: 399px;
+  height: 399px;
   float: left;
 }
 
@@ -199,7 +199,7 @@ button#grabber {
   cursor: -webkit-grab;
   cursor: grab;
   text-align: right;
-  padding-right: 10px;
+  padding-right: 22px;
   float: right;
 }
 
@@ -466,7 +466,7 @@ body {
 
 .deal-box {
   cursor: pointer;
-  margin-top: 100px;
+  margin-top: 30px;
   width: 60%;
   text-align: center;
   margin-left: auto;
@@ -539,4 +539,15 @@ body {
 
 #search-name {
   cursor: pointer;
+}
+
+.delivery-snap {
+  margin-top: 92px;
+  text-align: center;
+  background: rgb(78,89,113);
+  border: none;
+  font-size: 16px;
+  color: white;
+  font-weight: 100;
+  padding: 3px;
 }

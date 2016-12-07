@@ -107,6 +107,24 @@ var randomItem = 0;
 var lastSearch = false;
 var resultsSum = 0;
 
+function deliveryLoader() {
+  var deliverBySpan = document.getElementById('deliver-by');
+  var orderBySpan = document.getElementById('order-by');
+  var deliveryDay = moment().add(3, 'days').format('dddd MMMM Do');
+  var orderTime = moment().endOf('day').fromNow();
+  var deliveryDayPlus = moment().add(4, 'days').format('dddd MMMM Do');
+  var today = moment().format('dddd');
+
+  if (today === "Thursday") {
+    deliverBySpan.textContent = (deliveryDayPlus);
+    orderBySpan.textContent = (orderTime);
+  }
+  else {
+    deliverBySpan.textContent = (deliveryDay);
+    orderBySpan.textContent = (orderTime);
+  }
+}
+
 function eraseText() {
     document.getElementById("look-up").value = "";
 }
@@ -225,6 +243,7 @@ function dealAssigner(index) {
 }
 
 function showResult(index) {
+  window.scrollTo(0, 0);
   var resultBox = document.createElement('div');
   resultBox.className = "result-box";
   aResult.appendChild(resultBox);
@@ -304,6 +323,7 @@ function getDetails(index, el) {
 function itemDetail(index) {
   event.preventDefault();
   clear(aResult);
+  window.scrollTo(0, 0);
 
   var detailBox = document.createElement('div');
   detailBox.className = "detail-box";
@@ -403,6 +423,7 @@ function backListener(backButton) {
 
 function backSearch () {
 clear(aResult);
+window.scrollTo(0, 0);
 for (var i = 0; i < items.length; i++) {
   var itemText = items[i].name + items[i].manufacturer + items[i].price + items[i].description + items[i].department;
   if (itemText.toLowerCase().indexOf(lastSearch.toLowerCase()) > -1) {
@@ -473,6 +494,7 @@ function bagCostUpdater() {
 
 function bagReview() {
   clear(aResult);
+  window.scrollTo(0, 0);
 
   var reviewBox = document.createElement('div');
   reviewBox.className = "review-box";
@@ -548,6 +570,7 @@ function checkoutListener(checkoutButton) {
 function bagCheck() {
   if (bagQuantity < 1) {
     var bagBox = document.getElementById('bagItemsBox');
+    bagBox.className = 'no-results-box';
     bagBox.textContent = "Your bag is empty!";
     hideBagger();
     shippingCost = 0;
@@ -578,6 +601,7 @@ function hideBagger() {
 }
 
 function listItems(index) {
+  window.scrollTo(0, 0);
   var bagBox = document.getElementById('bagItemsBox');
 
   var itemBox = document.createElement('div');
@@ -704,6 +728,7 @@ function itemRemover(index) {
 function checkOutLoader() {
   event.preventDefault();
   clear(aResult);
+  window.scrollTo(0, 0);
 
   var checkoutBox = document.createElement('div');
   checkoutBox.className = "checkout-box";
@@ -1032,7 +1057,7 @@ function submitPageLoader(shipFirstName) {
   clear(aResult);
   var outBox = document.createElement('div');
   outBox.className = "out-box";
-  outBox.textContent = "Much Appreciated " + Name + "! Your order is on it's way.";
+  outBox.textContent = "Much Appreciated " + Name + "! Your order is on its way.";
   aResult.appendChild(outBox);
 }
 
@@ -1199,8 +1224,10 @@ aSearch.addEventListener('submit', function() {
 
  window.addEventListener('load', function() {
    dealChecker();
+   deliveryLoader();
  })
 
  aHome.addEventListener('click', function() {
    dealChecker();
+   window.scrollTo(0, 0);
  });
