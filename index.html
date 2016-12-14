@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,600" rel="stylesheet">
     <link rel="stylesheet" href="default.css">
     <link rel="shortcut icon" href="https://lh3.googleusercontent.com/7DgDQLqOxeGsLRLDElvH9zfc6ial9kHjRuOCTV6eH70ipegrdZT_KTRg4HGMYI50U6tLmdCuKw=w1440-h900-rw-no" type="image/x-icon"/>
+    <script type="text/javascript" src="http://momentjs.com/downloads/moment.js"></script>
   </head>
   <body>
     <div class="header">
@@ -26,11 +27,10 @@
         </div>
     </div>
     <div class="delivery-snap">
-      <span>Submit your order with<span id="order-by"></span> to get your items by <span id="deliver-by"></span> with our free 3 day shipping!</span>
+      <span id="delivery-span">Submit your order with<script type="text/javascript">document.write(moment().endOf('day').fromNow())</script> to get your items by <span id="deliver-by"></span> with our free 3 day shipping!</span>
     </div>
     <div id="result"></div>
     <script src="default.js"></script>
     <script src="https://use.fontawesome.com/0b36dbb6a9.js"></script>
-    <script type="text/javascript" src="http://momentjs.com/downloads/moment.js"></script>
   </body>
 </html>

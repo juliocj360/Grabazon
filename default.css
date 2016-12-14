@@ -8,6 +8,11 @@ body,
   padding: 0;
 }
 
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .detail-box {
   height: 100%;
   width: 100%;
@@ -255,6 +260,11 @@ button {
   height: 250px;
   float: left;
   padding-right: 5px;
+  cursor: pointer;
+}
+
+#bag-name {
+  cursor: pointer;
 }
 
 .mini-review-picture {
@@ -476,6 +486,7 @@ body {
   border-radius: 5px;
   border: 1px solid lightgrey;
   cursor: pointer;
+  -webkit-animation: fadein 1s;
 }
 
 .no-results-box {
@@ -550,4 +561,5 @@ body {
   color: white;
   font-weight: 100;
   padding: 3px;
+  -webkit-animation: fadein 2s;
 }

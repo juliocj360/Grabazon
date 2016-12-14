@@ -55,9 +55,9 @@ var items = [
     dealPrice: 6.29,
     description: "Classic Connect 4 game is disc-dropping fun. When you get 4 discs in a row you win!",
     department: "toys",
-    image: "http://trusca.imageg.net/graphics/product_images/pTRUCA1-16021344enh-z6.jpg",
-    image2: "https://images-na.ssl-images-amazon.com/images/I/81r5NKXoxnL._SL1500_.jpg",
-    image3: "https://images-na.ssl-images-amazon.com/images/I/81Vye%2BcEl%2BL._SL1500_.jpg"
+    image: "https://images-na.ssl-images-amazon.com/images/I/81EuVyI5lkL._SL1500_.jpg",
+    image2: "https://images-na.ssl-images-amazon.com/images/I/711R5WaN9DL._SL1500_.jpg",
+    image3: "https://images-na.ssl-images-amazon.com/images/I/71zWgGG%2B%2BUL._SL1500_.jpg"
   },
   {
     name: "Battleship Game",
@@ -70,7 +70,7 @@ var items = [
     dealPrice: 8.19,
     description: "Classic Battleship game lets you hold head-to-head naval battles. If you can locate your enemy's ships you can destroy all 5 for the win!",
     department: "toys",
-    image: "http://www.ultrabattleship.com/gfx/cover.jpg",
+    image: "https://cdn.shopify.com/s/files/1/0384/6073/products/battleship1_abdb9040-b10a-43e9-9707-c84c89b6e243.JPG?v=1460073882",
     image2: "https://images-na.ssl-images-amazon.com/images/I/81iQDqzHaFL._SL1500_.jpg",
     image3: "https://images-na.ssl-images-amazon.com/images/I/81rXDfJMwlL._SL1500_.jpg"
   },
@@ -85,7 +85,7 @@ var items = [
     dealPrice: 4.31,
     description: "Four suits of 25 cards each, plus the eight Wild cards Earn points from other players when you go out first. Reach 500 points to win the game!",
     department: "toys",
-    image: "http://frenchuno.com/wp-content/uploads/2015/02/uno-cards1.jpg",
+    image: "http://blog.ubi.com/app/uploads/2016/07/uno_thumb_3.jpg",
     image2: "https://images-na.ssl-images-amazon.com/images/I/8103SR3MSWL._SL1500_.jpg",
     image3: "https://images-na.ssl-images-amazon.com/images/I/81TO6gd03fL._SL1500_.jpg"
   }
@@ -111,17 +111,14 @@ function deliveryLoader() {
   var deliverBySpan = document.getElementById('deliver-by');
   var orderBySpan = document.getElementById('order-by');
   var deliveryDay = moment().add(3, 'days').format('dddd MMMM Do');
-  var orderTime = moment().endOf('day').fromNow();
   var deliveryDayPlus = moment().add(4, 'days').format('dddd MMMM Do');
   var today = moment().format('dddd');
 
   if (today === "Thursday") {
     deliverBySpan.textContent = (deliveryDayPlus);
-    orderBySpan.textContent = (orderTime);
   }
   else {
     deliverBySpan.textContent = (deliveryDay);
-    orderBySpan.textContent = (orderTime);
   }
 }
 
@@ -130,6 +127,8 @@ function eraseText() {
 }
 
 function searchText() {
+  var deliverySpan = document.getElementById('delivery-span');
+  deliverySpan.style.display = 'block';
   resultsSum = 0;
   clear(aResult);
   for (var i = 0; i < items.length; i++) {
@@ -180,6 +179,9 @@ function dealChecker() {
 }
 
 function dealLoader(index) {
+  var deliverySpan = document.getElementById('delivery-span');
+  deliverySpan.style.display = 'block';
+
   var dealBox = document.createElement('div');
   dealBox.className = 'deal-box';
   aResult.appendChild(dealBox);
@@ -496,6 +498,9 @@ function bagReview() {
   clear(aResult);
   window.scrollTo(0, 0);
 
+  var deliverySpan = document.getElementById('delivery-span');
+  deliverySpan.style.display = 'block';
+
   var reviewBox = document.createElement('div');
   reviewBox.className = "review-box";
   aResult.appendChild(reviewBox);
@@ -653,6 +658,7 @@ function listItems(index) {
   var name = document.createElement('h3');
   name.className = 'name';
   name.textContent = items[index].name;
+  name.setAttribute('id', 'bag-name');
   itemBox.appendChild(name);
 
   var maker = document.createElement('h4');
@@ -669,6 +675,8 @@ function listItems(index) {
   incrementUp(index, incrementerUp);
   incrementDown(index, incrementerDown);
   bagDealUpdater(index, itemCost, itemTotal);
+  getDetails(index, name);
+  getDetails(index, image);
 }
 
 function bagDealUpdater(index, itemCost, itemTotal) {
@@ -1053,6 +1061,8 @@ function debagger(shipFirstName) {
 }
 
 function submitPageLoader(shipFirstName) {
+  var deliverySpan = document.getElementById('delivery-span');
+  deliverySpan.style.display = 'none';
   var Name = shipFirstName.value;
   clear(aResult);
   var outBox = document.createElement('div');
