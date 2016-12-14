@@ -1,12 +1,23 @@
 html,
 body,
 #result,
-.detail-box,
 .review-box,
 .checkout-box {
+  height: 100%;
   margin: 0;
   padding: 0;
+}
+
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.detail-box {
   height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 5px;
 }
 
 body,
@@ -32,10 +43,18 @@ p {
 }
 
 .header {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  width: 100%;
   overflow: auto;
   background-color: black;
   color: white;
   padding: 5px;
+}
+
+#result {
+  margin-top: 0;
 }
 
 #grab-bag {
@@ -47,38 +66,54 @@ p {
   width: 500px;
   float: left;
   padding-right: 5px;
+  cursor: pointer;
 }
 
 .result-box {
-  cursor: pointer;
-  border-bottom: lightgrey solid 1px;
+  position: relative;
   overflow: auto;
+  border-bottom: lightgrey solid 1px;
   padding: 5px;
+}
+
+.quick-add {
+  position: absolute;
+  bottom: 5px;
+  left: 510px;
+  font-size: 16px;
+  color: white;
+  background: rgb(78,89,113);
+  border: none;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
 }
 
 .images-box {
   overflow: auto;
-  padding: 5px;
+  padding-right: 5px;
 }
 
 .searcher {
+  position: relative;
   top: 50%;
-  margin-left: 0;
-  margin-right: 0;
   display: inline;
   min-width: 326px;
   vertical-align: middle;
+  margin-left: 0;
+  margin-right: 0;
   white-space: nowrap;
-  position: relative;
   width: 100%;
 }
 
 .box {
   display: inline-block;
-  margin: 10px auto;
   width: 60%;
   height: 20px;
   vertical-align: middle;
+  margin: 10px auto;
 }
 
 #search-box {
@@ -89,23 +124,23 @@ input#look-up {
   min-width: 300px;
   width: 100%;
   height: 20px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: white;
   background: rgb(78,89,113);
   border: none;
-  font-size: 10px;
-  color: white;
   padding-left: 25px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  vertical-align: middle;
 }
 
 #logo {
   float: left;
   display: inline;
   max-height: 80px;
-  cursor: pointer;
   margin-right: 25px;
+  cursor: pointer;
 }
 
 span.icon {
@@ -119,28 +154,28 @@ span.icon {
 #quantity {
   position: absolute;
   z-index: 1;
+  text-align: center;
+  height: 28px;
   color: black;
   border: rgb(78,89,113) solid 1px;
   padding: 0;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  text-align: center;
-  height: 28px;
 }
 
 .main-picture {
-  width: 330px;
-  height: 330px;
+  width: 399px;
+  height: 399px;
   float: left;
 }
 
 .picture1,
 .picture2,
 .picture3 {
-  width: 100px;
-  height: 100px;
   display: block;
+  width: 123px;
+  height: 123px;
 }
 
 .picture1,
@@ -154,6 +189,7 @@ span.icon {
   padding: 20px 5px;
   overflow: auto;
   border-left: lightgrey solid 1px;
+  margin: 5px;
 }
 
 #quantity,
@@ -162,13 +198,14 @@ span.icon {
 }
 
 button#grabber {
-  width: 120px;
+  float: right;
+  width: 135px;
   height: 30px;
   cursor: -moz-grab;
   cursor: -webkit-grab;
   cursor: grab;
   text-align: right;
-  padding-right: 10px;
+  padding-right: 22px;
 }
 
 #grabber:active {
@@ -182,54 +219,85 @@ button {
 }
 
 #grab-bag {
-  margin-right: 0;
+  margin-right: 10px;
 }
 
 #review-button,
 #checkout-button,
 #submit-button,
-#grabber {
-  width: 125px;
-  background: rgb(78,89,113);
-  border: none;
+#grabber,
+#back-button {
+  width: 135px;
   font-size: 10px;
   color: white;
+  background: rgb(78,89,113);
+  border: none;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+  padding: 5px 0;
+}
+
+#checkout-button {
+  display: block;
+  float: right;
+  clear: both;
+  margin-right: 0;
+}
+
+#back-button {
+  display: block;
+  float: right;
+  clear: both;
+  margin-top: 25px;
+  text-align: center;
+  padding: 5px 0;
+  cursor: pointer;
 }
 
 .review-picture {
   width: 250px;
   height: 250px;
   float: left;
-  padding: 5px;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+#bag-name {
+  cursor: pointer;
 }
 
 .mini-review-picture {
   width: 100px;
   height: 100px;
   float: left;
+  padding-right: 5px;
 }
 
 .review-item-box,
 .review-header,
 #sub-title {
+  position: relative;
   overflow: auto;
   padding: 5px;
-  position: relative;
   border-bottom: lightgrey solid 1px;
 }
 
 .delivery-text {
+  position: relative;
   overflow: auto;
   padding-bottom: 5px;
-  position: relative;
 }
 
 #register-box {
   float: right;
   overflow: auto;
+  display: block;
+  padding-bottom: 10px;
+}
+
+#hidden {
+  display: none;
 }
 
 .inner-runner {
@@ -239,9 +307,9 @@ button {
 
 #runner-item {
   display: inline-block;
+  width: 60px;
   margin-left: 5px;
   margin-right: 5px;
-  width: 60px;
   font-weight: 600;
   font-size: 12px;
   text-align: center;
@@ -249,9 +317,9 @@ button {
 
 #register-item {
   display: inline-block;
+  width: 60px;
   margin-left: 5px;
   margin-right: 5px;
-  width: 60px;
   font-weight: 600;
   font-size: 12px;
 }
@@ -287,18 +355,18 @@ button {
   padding-right: 1px;
   font-weight: 600;
   font-size: 20px;
-  cursor: pointer;
   color: rgb(78,89,113);
+  cursor: pointer;
 }
 
 #remover {
   position: absolute;
   bottom: 10px;
   left: 265px;
-  cursor: pointer;
   font-size: 10px;
   font-weight: 600;
   color: blue;
+  cursor: pointer;
 }
 
 #submit-button {
@@ -315,24 +383,24 @@ button {
 
 .detail-input {
   display: block;
-  background: rgb(78,89,113);
-  border: none;
+  height: 14px;
+  width: 200px;
   font-size: 10px;
   color: white;
+  background: rgb(78,89,113);
+  border: none;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  height: 14px;
-  width: 160px;
   margin: 5px;
   padding: 5px;
 }
 
 #delivery-options {
-  background: rgb(78,89,113);
-  border: none;
   font-size: 12px;
   color: white;
+  background: rgb(78,89,113);
+  border: none;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -382,7 +450,7 @@ button {
 }
 
 .review-column1 {
-  min-width: 320px;
+  min-width: 340px;
 }
 
 .shipping-box {
@@ -407,9 +475,8 @@ body {
 }
 
 .deal-box {
-  cursor: pointer;
-  margin-top: 50px;
   width: 60%;
+  margin-top: 30px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -418,6 +485,16 @@ body {
   -moz-border-radius: 5px;
   border-radius: 5px;
   border: 1px solid lightgrey;
+  cursor: pointer;
+  -webkit-animation: fadein 1s;
+}
+
+.no-results-box {
+  margin-top: 150px;
+  width: 60%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .deal-picture {
@@ -427,7 +504,7 @@ body {
 .deal-box-title {
   padding: 5px;
   font-size: 26px;
-  font-weight: 600;
+  font-weight: 100;
   color: white;
   background: black;
   -webkit-border-radius: 5px;
@@ -448,4 +525,41 @@ body {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+}
+
+.new-price,
+.deal-text {
+  color: red;
+  padding: 0 5px;
+}
+
+.name {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 26px;
+  font-weight: 100;
+  color: white;
+  background: black;
+}
+
+#mini.name {
+  font-size: 16px;
+}
+
+#search-name {
+  cursor: pointer;
+}
+
+.delivery-snap {
+  margin-top: 92px;
+  text-align: center;
+  background: rgb(78,89,113);
+  border: none;
+  font-size: 16px;
+  color: white;
+  font-weight: 100;
+  padding: 3px;
+  -webkit-animation: fadein 2s;
 }

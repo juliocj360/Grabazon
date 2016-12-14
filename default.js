@@ -55,9 +55,9 @@ var items = [
     dealPrice: 6.29,
     description: "Classic Connect 4 game is disc-dropping fun. When you get 4 discs in a row you win!",
     department: "toys",
-    image: "http://trusca.imageg.net/graphics/product_images/pTRUCA1-16021344enh-z6.jpg",
-    image2: "https://images-na.ssl-images-amazon.com/images/I/81r5NKXoxnL._SL1500_.jpg",
-    image3: "https://images-na.ssl-images-amazon.com/images/I/81Vye%2BcEl%2BL._SL1500_.jpg"
+    image: "https://images-na.ssl-images-amazon.com/images/I/81EuVyI5lkL._SL1500_.jpg",
+    image2: "https://images-na.ssl-images-amazon.com/images/I/711R5WaN9DL._SL1500_.jpg",
+    image3: "https://images-na.ssl-images-amazon.com/images/I/71zWgGG%2B%2BUL._SL1500_.jpg"
   },
   {
     name: "Battleship Game",
@@ -70,7 +70,7 @@ var items = [
     dealPrice: 8.19,
     description: "Classic Battleship game lets you hold head-to-head naval battles. If you can locate your enemy's ships you can destroy all 5 for the win!",
     department: "toys",
-    image: "http://www.ultrabattleship.com/gfx/cover.jpg",
+    image: "https://cdn.shopify.com/s/files/1/0384/6073/products/battleship1_abdb9040-b10a-43e9-9707-c84c89b6e243.JPG?v=1460073882",
     image2: "https://images-na.ssl-images-amazon.com/images/I/81iQDqzHaFL._SL1500_.jpg",
     image3: "https://images-na.ssl-images-amazon.com/images/I/81rXDfJMwlL._SL1500_.jpg"
   },
@@ -85,7 +85,7 @@ var items = [
     dealPrice: 4.31,
     description: "Four suits of 25 cards each, plus the eight Wild cards Earn points from other players when you go out first. Reach 500 points to win the game!",
     department: "toys",
-    image: "http://frenchuno.com/wp-content/uploads/2015/02/uno-cards1.jpg",
+    image: "http://blog.ubi.com/app/uploads/2016/07/uno_thumb_3.jpg",
     image2: "https://images-na.ssl-images-amazon.com/images/I/8103SR3MSWL._SL1500_.jpg",
     image3: "https://images-na.ssl-images-amazon.com/images/I/81TO6gd03fL._SL1500_.jpg"
   }
@@ -104,18 +104,57 @@ var shippingCost = 0;
 var tax = 0;
 var taxes = 0;
 var randomItem = 0;
+var lastSearch = false;
+var resultsSum = 0;
+
+function deliveryLoader() {
+  var deliverBySpan = document.getElementById('deliver-by');
+  var orderBySpan = document.getElementById('order-by');
+  var deliveryDay = moment().add(3, 'days').format('dddd MMMM Do');
+  var deliveryDayPlus = moment().add(4, 'days').format('dddd MMMM Do');
+  var today = moment().format('dddd');
+
+  if (today === "Thursday") {
+    deliverBySpan.textContent = (deliveryDayPlus);
+  }
+  else {
+    deliverBySpan.textContent = (deliveryDay);
+  }
+}
 
 function eraseText() {
     document.getElementById("look-up").value = "";
 }
 
 function searchText() {
+  var deliverySpan = document.getElementById('delivery-span');
+  deliverySpan.style.display = 'block';
+  resultsSum = 0;
   clear(aResult);
   for (var i = 0; i < items.length; i++) {
     var itemText = items[i].name + items[i].manufacturer + items[i].price + items[i].description + items[i].department;
     if (itemText.toLowerCase().indexOf(lookUp.value.toLowerCase()) > -1) {
       showResult(i);
+      lastSearch = lookUp.value;
     }
+    else {
+      resultsSum += i;
+      noResultsChecker();
+    }
+  }
+}
+
+function noResultsChecker() {
+  var sum = 0;
+  for (var i = 0; i < items.length; i++) {
+    sum += i;
+    if (sum === resultsSum) {
+      var noResultsBox = document.createElement('div');
+      noResultsBox.className = 'no-results-box';
+      noResultsBox.textContent = "Sorry, no items by that name.  Try searching 'toys'";
+      aResult.appendChild(noResultsBox);
+    }
+    break;
   }
 }
 
@@ -125,7 +164,7 @@ function clear(element) {
   }
 }
 
- function dealChecker() {
+function dealChecker() {
   clear(aResult);
   var date = new Date()
   var previousDate = localStorage.getItem('date');
@@ -140,6 +179,9 @@ function clear(element) {
 }
 
 function dealLoader(index) {
+  var deliverySpan = document.getElementById('delivery-span');
+  deliverySpan.style.display = 'block';
+
   var dealBox = document.createElement('div');
   dealBox.className = 'deal-box';
   aResult.appendChild(dealBox);
@@ -203,19 +245,21 @@ function dealAssigner(index) {
 }
 
 function showResult(index) {
+  window.scrollTo(0, 0);
   var resultBox = document.createElement('div');
   resultBox.className = "result-box";
-  resultBox.setAttribute('id', items[index].shortName);
   aResult.appendChild(resultBox);
 
   var image = document.createElement('img');
   image.className = "picture";
   image.setAttribute('src', items[index].image);
+  image.setAttribute('id', items[index].shortName);
   resultBox.appendChild(image);
 
   var name = document.createElement('h3');
   name.className = 'name';
   name.textContent = items[index].name;
+  name.setAttribute('id', 'search-name')
   resultBox.appendChild(name);
 
   var price = document.createElement('h4');
@@ -233,7 +277,18 @@ function showResult(index) {
   description.textContent = items[index].description;
   resultBox.appendChild(description);
 
-  getDetails(index);
+  var quickAdd = document.createElement('div');
+  quickAdd.className = 'quick-add';
+  quickAdd.setAttribute('id', 'quickAdd');
+  quickAdd.textContent = "Quick Add";
+  resultBox.appendChild(quickAdd);
+
+  quickAdd.addEventListener('click', function() {
+    quantityAdder(index, 1);
+  })
+
+  getDetails(index, name);
+  getDetails(index,image);
   dealUpdater(index, price);
 }
 
@@ -261,9 +316,8 @@ function priceUpdater(index, price) {
   price.appendChild(dealText);
 }
 
-function getDetails(index) {
-  var aDetails = document.getElementById(items[index].shortName);
-  aDetails.addEventListener('click', function () {
+function getDetails(index, el) {
+  el.addEventListener('click', function () {
     itemDetail(index);
   }, true)
 }
@@ -271,6 +325,7 @@ function getDetails(index) {
 function itemDetail(index) {
   event.preventDefault();
   clear(aResult);
+  window.scrollTo(0, 0);
 
   var detailBox = document.createElement('div');
   detailBox.className = "detail-box";
@@ -298,6 +353,11 @@ function itemDetail(index) {
   grabber.setAttribute('type', 'button');
   grabber.textContent = 'Grab Item!';
   grabForm.appendChild(grabber);
+
+  var backButton = document.createElement('div');
+  backButton.setAttribute('id', 'back-button');
+  backButton.textContent = "Back to Search Results";
+  runner.appendChild(backButton);
 
   var imagesBox = document.createElement('div');
   imagesBox.className = "images-box";
@@ -344,11 +404,34 @@ function itemDetail(index) {
   description.textContent = items[index].description;
   detailBox.appendChild(description);
 
+  backListener(backButton);
   grabItems(index);
   focusImage(image1);
   focusImage(image2);
   focusImage(image3);
   dealUpdater(index, price);
+}
+
+function backListener(backButton) {
+  if (lastSearch === false) {
+    backButton.setAttribute('id', 'hidden');
+  }
+  else {
+    backButton.addEventListener('click', function() {
+    backSearch();
+    });
+  }
+}
+
+function backSearch () {
+clear(aResult);
+window.scrollTo(0, 0);
+for (var i = 0; i < items.length; i++) {
+  var itemText = items[i].name + items[i].manufacturer + items[i].price + items[i].description + items[i].department;
+  if (itemText.toLowerCase().indexOf(lastSearch.toLowerCase()) > -1) {
+    showResult(i);
+    }
+  }
 }
 
 function focusImage(image) {
@@ -365,7 +448,7 @@ function grabItems(index) {
   grabbed.addEventListener('click', function () {
     quantityAdder(index, quantityGrabbed.value);
   }, true)
-  }
+}
 
 function quantityAdder(index, quantity) {
   items[index].quantity += parseInt(quantity, 10);
@@ -413,6 +496,10 @@ function bagCostUpdater() {
 
 function bagReview() {
   clear(aResult);
+  window.scrollTo(0, 0);
+
+  var deliverySpan = document.getElementById('delivery-span');
+  deliverySpan.style.display = 'block';
 
   var reviewBox = document.createElement('div');
   reviewBox.className = "review-box";
@@ -423,11 +510,20 @@ function bagReview() {
   runner.setAttribute('id', 'checkoutRunner');
   reviewBox.appendChild(runner);
 
+  var register = document.createElement('div');
+  register.setAttribute('id', 'register-box');
+  runner.appendChild(register);
+
   var checkoutButton = document.createElement('button');
   checkoutButton.setAttribute('id', 'checkout-button');
   checkoutButton.setAttribute('type', 'button');
   checkoutButton.textContent = 'Proceed to Checkout';
   runner.appendChild(checkoutButton);
+
+  var backButton = document.createElement('div');
+  backButton.setAttribute('id', 'back-button');
+  backButton.textContent = "Back to Search Results";
+  runner.appendChild(backButton);
 
   var reviewHeader = document.createElement('div');
   reviewHeader.className = "review-header";
@@ -464,10 +560,7 @@ function bagReview() {
   bagItemsBox.setAttribute('id', 'bagItemsBox');
   reviewBox.appendChild(bagItemsBox);
 
-  var register = document.createElement('div');
-  register.setAttribute('id', 'register-box');
-  reviewBox.appendChild(register);
-
+  backListener(backButton);
   registerLoader(register);
   bagCheck();
   checkoutListener(checkoutButton);
@@ -482,6 +575,7 @@ function checkoutListener(checkoutButton) {
 function bagCheck() {
   if (bagQuantity < 1) {
     var bagBox = document.getElementById('bagItemsBox');
+    bagBox.className = 'no-results-box';
     bagBox.textContent = "Your bag is empty!";
     hideBagger();
     shippingCost = 0;
@@ -512,6 +606,7 @@ function hideBagger() {
 }
 
 function listItems(index) {
+  window.scrollTo(0, 0);
   var bagBox = document.getElementById('bagItemsBox');
 
   var itemBox = document.createElement('div');
@@ -563,6 +658,7 @@ function listItems(index) {
   var name = document.createElement('h3');
   name.className = 'name';
   name.textContent = items[index].name;
+  name.setAttribute('id', 'bag-name');
   itemBox.appendChild(name);
 
   var maker = document.createElement('h4');
@@ -579,6 +675,8 @@ function listItems(index) {
   incrementUp(index, incrementerUp);
   incrementDown(index, incrementerDown);
   bagDealUpdater(index, itemCost, itemTotal);
+  getDetails(index, name);
+  getDetails(index, image);
 }
 
 function bagDealUpdater(index, itemCost, itemTotal) {
@@ -599,7 +697,7 @@ function bagPriceUpdater(index, itemCost, itemTotal) {
   var newTotal = document.createElement('div');
   newTotal.className = 'new-price';
   newTotal.setAttribute('id', 'runner-item');
-  newTotal.textContent = "$" + (items[index].dealPrice * items[index].quantity);
+  newTotal.textContent = "$" + (items[index].dealPrice * items[index].quantity).toFixed(2);
   itemTotal.appendChild(newTotal);
 }
 
@@ -638,6 +736,7 @@ function itemRemover(index) {
 function checkOutLoader() {
   event.preventDefault();
   clear(aResult);
+  window.scrollTo(0, 0);
 
   var checkoutBox = document.createElement('div');
   checkoutBox.className = "checkout-box";
@@ -855,7 +954,6 @@ function checkOutLoader() {
   standardShip.setAttribute('type', 'radio');
   standardShip.setAttribute('name', "shipping");
   standardShip.setAttribute('id', 'radioButton1');
-  standardShip.setAttribute('checked', 'checked');
   standardShip.setAttribute('value', 0);
   standardShipContainer.appendChild(standardShip);
 
@@ -906,11 +1004,34 @@ function checkOutLoader() {
   submitButton.textContent = "Submit Order";
   runner.appendChild(submitButton);
 
+  var backButton = document.createElement('button');
+  backButton.setAttribute('id', 'back-button');
+  backButton.setAttribute('type', 'button')
+  backButton.textContent = "Back to Search Results";
+  runner.appendChild(backButton);
+
+  backListener(backButton);
   checkboxer(addressCheckbox);
   registerLoader(register);
   shipper(deliveryOptions);
   miniListRun();
   submitter(submitButton, shipFirstName);
+  radioChecker();
+}
+
+function radioChecker() {
+  var twoDay = document.getElementById('radioButton2');
+  var nextDay = document.getElementById('radioButton3');
+  var standardShip = document.getElementById('radioButton1')
+  if (Number(shippingCost) === 9.99) {
+    twoDay.setAttribute('checked', 'checked');
+  }
+  else if (Number(shippingCost) === 19.99) {
+    nextDay.setAttribute('checked', 'checked');
+  }
+  else {
+    standardShip.setAttribute('checked', 'checked');
+  }
 }
 
 function submitter(submitButton, shipFirstName){
@@ -940,11 +1061,13 @@ function debagger(shipFirstName) {
 }
 
 function submitPageLoader(shipFirstName) {
+  var deliverySpan = document.getElementById('delivery-span');
+  deliverySpan.style.display = 'none';
   var Name = shipFirstName.value;
   clear(aResult);
   var outBox = document.createElement('div');
   outBox.className = "out-box";
-  outBox.textContent = "Much Appreciated " + Name + "! Your order is on it's way.";
+  outBox.textContent = "Much Appreciated " + Name + "! Your order is on its way.";
   aResult.appendChild(outBox);
 }
 
@@ -1070,6 +1193,7 @@ function listMiniItems(index) {
   var name = document.createElement('h3');
   name.className = 'name';
   name.textContent = items[index].name;
+  name.setAttribute('id', 'mini');
   itemBox.appendChild(name);
 
   var maker = document.createElement('h4');
@@ -1110,8 +1234,10 @@ aSearch.addEventListener('submit', function() {
 
  window.addEventListener('load', function() {
    dealChecker();
+   deliveryLoader();
  })
 
  aHome.addEventListener('click', function() {
    dealChecker();
+   window.scrollTo(0, 0);
  });
