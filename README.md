@@ -1,5 +1,6 @@
 # Grabazon: Project 2- Amazon Clone
 
+![GIF](https://cloud.githubusercontent.com/assets/23223086/22186584/8e921c34-e0ac-11e6-95b3-0b804789af38.gif)
 
 ![Home Screen](https://cloud.githubusercontent.com/assets/23223086/20984371/bc6fa04c-bc74-11e6-8fb4-8c1253288766.png)
  -Home screen that loads with a randomly selected item as the deal of the day.  The randomly selected item is stored in the users local storage and will remain as the deal of the day for the enitre day.
