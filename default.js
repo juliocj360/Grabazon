@@ -193,7 +193,7 @@ function dealLoader(index) {
 
   var grabImage = document.createElement('img');
   grabImage.className = 'mini-grab';
-  grabImage.setAttribute('src', 'https://lh3.googleusercontent.com/HSTrQGXsSn6iOtW5JgJJgVj1dgmToq9Id_Zo1zK7N02Uzyj0o1OtFHnRG1nkwZG7HxreDbzeD6Q23e_wfpJymFcipLY-OPMy=w1440-h900-rw-no');
+  grabImage.setAttribute('src', 'https://cloud.githubusercontent.com/assets/23223086/24132337/1778a6f8-0db2-11e7-902a-0451b479d486.png');
   dealBoxTitle.appendChild(grabImage);
 
   var image = document.createElement('img');
